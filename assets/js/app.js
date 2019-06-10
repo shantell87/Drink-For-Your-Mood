@@ -45,106 +45,133 @@ $(document).ready(function() {
 });
 
 // *** Evaluation & Drink Recommendation page ***
-// object for 50 different drink options
+$(document).ready(function() {
+    // object for 50 different drink options
 
-//Check if browser supports camera use
-// const supported = 'mediaDevices' in navigator;
+    //Check if browser supports camera use
+    // const supported = 'mediaDevices' in navigator;
 
-const constraints = { "video": { width: { exact: 320 } } };
-var videoTag = document.getElementById('video-tag');
-var imageTag = document.getElementById('image-tag');
-var zoomSlider = document.getElementById("zoom-slider");
-var zoomSliderValue = document.getElementById("zoom-slider-value");
-var imageCapturer;
+    const constraints = { "video": { width: { exact: 320 } } };
+    // var videoTag = $('#video-tag');
+    // var imageTag = $('#image-tag');
+    var zoomSlider = $("#zoom-slider");
+    var zoomSliderValue = $("#zoom-slider-value");
+    var imageCapturer;
+    const videoTag = document.querySelector('#video-tag');
+    const imageTag = document.querySelector('#image-tag');
 
-$('#start').on('click', start() => {
-    navigator.mediaDevices.getUserMedia(constraints)
-        .then(gotMedia)
-        .catch(e => { console.error('getUserMedia() failed: ', e); });
-})
+    $('#start').on('click', function start() {
+        console.log("HELLO");
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(gotMedia)
+            .catch(e => { console.error('getUserMedia() failed: ', e); });
+    })
 
-function gotMedia(mediastream) {
-    videoTag.srcObject = mediastream;
-    $('#start').disabled = true;
+    function gotMedia(mediastream) {
+        // console.log(videoTag);
 
-    var videoTrack = mediastream.getVideoTracks()[0];
-    imageCapturer = new ImageCapture(videoTrack);
+        videoTag.srcObject = mediastream;
 
-    // Timeout needed in Chrome, see https://crbug.com/711524
-    setTimeout(() => {
-        const capabilities = videoTrack.getCapabilities()
-            // Check whether zoom is supported or not.
-        if (!capabilities.zoom) {
-            return;
-        }
+        $('#start').disabled = true;
 
-        zoomSlider.min = capabilities.zoom.min;
-        zoomSlider.max = capabilities.zoom.max;
-        zoomSlider.step = capabilities.zoom.step;
+        var videoTrack = mediastream.getVideoTracks()[0];
+        imageCapturer = new ImageCapture(videoTrack);
 
-        zoomSlider.value = zoomSliderValue.value = videoTrack.getSettings().zoom;
-        zoomSliderValue.value = zoomSlider.value;
+        // Timeout needed in Chrome, see https://crbug.com/711524
+        setTimeout(() => {
+            const capabilities = videoTrack.getCapabilities()
+                // Check whether zoom is supported or not.
+            if (!capabilities.zoom) {
+                return;
+            }
 
-        zoomSlider.oninput = function() {
+            zoomSlider.min = capabilities.zoom.min;
+            zoomSlider.max = capabilities.zoom.max;
+            zoomSlider.step = capabilities.zoom.step;
+
+            zoomSlider.value = zoomSliderValue.value = videoTrack.getSettings().zoom;
             zoomSliderValue.value = zoomSlider.value;
-            videoTrack.applyConstraints({ advanced: [{ zoom: zoomSlider.value }] });
-        }
-    }, 500);
 
-}
+            zoomSlider.oninput = function() {
+                zoomSliderValue.value = zoomSlider.value;
+                videoTrack.applyConstraints({ advanced: [{ zoom: zoomSlider.value }] });
+            }
+        }, 500);
 
-$('#takePhoto').on('click', takePhoto() => {
-            imageCapturer.takePhoto()
-                .then((blob) => {
-                    console.log("Photo taken: " + blob.type + ", " + blob.size + "B")
-                    imageTag.src = URL.createObjectURL(blob);
-                })
-                .catch((err) => {
-                    console.error("takePhoto() failed: ", e);
-                });
-        }
+    }
 
+    $('#takePhoto').on('click', function takePhoto() {
+        // console.log("clicked");
+        imageCapturer.takePhoto()
+            .then((blob) => {
+                console.log("Photo taken: " + blob.type + ", " + blob.size + "B")
+                imageTag.src = URL.createObjectURL(blob);
 
-
-        // run through face ++ api
-
-        // variable for query URL
-
-        // AJAX call using query url and photo
-        var queryURL = `https://api-us.faceplusplus.com/facepp/v3/face/analyze&api_key=XtvBZyeUXRy0uOEtl1mlG61af7JzBlIj&api_secret=tYNC1LAnUmHhUw_1IXhLLyKJXcZRHuvo`
-
-        // then response function
-
-        // pull user slider input from previous page
-
-        // pull face ++ results
-
-        // compare face ++ results & slider results
-
-        // SECONDARY - pull weather from weather api for the decision
-
-        // if statement with accepted camera permissions
-
-        // if accepted, use face ++ & weather to come up with drink recommendation
+                var reader = new FileReader();
+                reader.readAsDataURL(blob);
+                reader.onloadend = function() {
+                    let base64data = reader.result;
+                    console.log(base64data);
 
 
-        // else give drink recommendation based on slider
+                    var queryURL = `https://api-us.faceplusplus.com/facepp/v3/detect?image_base64=${base64data}&api_key=XtvBZyeUXRy0uOEtl1mlG61af7JzBlIj&api_secret=tYNC1LAnUmHhUw_1IXhLLyKJXcZRHuvo`
 
-        // DISPLAY 
+                    $.ajax({
+                        url: queryURL,
+                        method: "GET"
+                    }).then(function(response) {
+                        console.log(`FACE++: ${response}`);
+                    });
+                    // console.log(URL.createObjectURL(blob));
 
-        var queryURL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drinks}`;
+                }
+            })
+            // .catch((err) => {
+            //     console.error("takePhoto() failed: ", e);
+            // });
+    })
+});
 
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        }).then(function(response) {
-            console.log(`Drinks Data: ${response}`);
-        });
 
-        // picture of drink in the html
-        // ingredients
-        // instructions
+// run through face ++ api
 
-        // *** About Us & Contact Page ***
+// variable for query URL
 
-        // Contact us store the user inputs in a database?
+// AJAX call using query url and photo
+var queryURL = `https://api-us.faceplusplus.com/facepp/v3/face/analyze&api_key=XtvBZyeUXRy0uOEtl1mlG61af7JzBlIj&api_secret=tYNC1LAnUmHhUw_1IXhLLyKJXcZRHuvo`
+
+// then response function
+
+// pull user slider input from previous page
+
+// pull face ++ results
+
+// compare face ++ results & slider results
+
+// SECONDARY - pull weather from weather api for the decision
+
+// if statement with accepted camera permissions
+
+// if accepted, use face ++ & weather to come up with drink recommendation
+
+
+// else give drink recommendation based on slider
+
+// // DISPLAY 
+
+// var queryURL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drinks}`;
+
+// $.ajax({
+//     url: queryURL,
+//     method: "GET"
+// }).then(function(response) {
+//     console.log(`Drinks Data: ${response}`);
+// });
+
+// picture of drink in the html
+// ingredients
+// instructions
+
+// *** About Us & Contact Page ***
+
+// Contact us store the user inputs in a database?

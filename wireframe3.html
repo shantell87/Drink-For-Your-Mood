@@ -54,14 +54,16 @@
 
             <div>
                 <div style="float:left;margin-right:5px;">
-                    <video id="video-tag" width="240" height="180" autoplay=true>
+                    <video id="video-tag" width="240" height="180" autoplay playsinline>
             </div>
             <div style="float:left">
                 <img id="image-tag" width="240">
             </div>
-
+        
         <div style="width: 240px">
             <button id="takePhoto">take photo</button>
+            <input type="range" id="zoom-slider" min="0", max="0">
+            <output id="zoom-slider-value"></output>
         </div>
 
 
@@ -72,7 +74,7 @@
     <footer class="footer mt-auto py-3 bg-light">
         <p>@TEAM R.S.G.</p>
     </footer>
-
+    <script src="./assets/js/app.js"></script>
 </body>
 
 </html>
