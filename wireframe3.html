@@ -9,11 +9,9 @@
     <title>A Drink for your Mood</title>
     <link rel="stylesheet" href="./assets/css/style.css">
     <!-- FAVICON -->
-    <link rel="icon"
-        href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/198/face-with-uneven-eyes-and-wavy-mouth_1f974.png">
+    <link rel="icon" href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/198/face-with-uneven-eyes-and-wavy-mouth_1f974.png">
     <!-- BOOTSTRAP -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <style>
@@ -25,7 +23,7 @@
             -ms-user-select: none;
             user-select: none;
         }
-
+        
         @media (min-width: 768px) {
             .bd-placeholder-img-lg {
                 font-size: 3.5rem;
@@ -42,8 +40,7 @@
             <div class="inner">
                 <nav class="navbar navbar-light bg-light">
                     <a class="navbar-brand" href="#">
-                        <img src="./assets/images/emoji.png" width="30" height="30" class="d-inline-block align-top"
-                            alt="">
+                        <img src="./assets/images/emoji.png" width="30" height="30" class="d-inline-block align-top" alt="">
                         <strong>A Drink For Your Mood</strong>
                     </a>
                 </nav>
@@ -53,23 +50,24 @@
 
         <!-- image capture -->
         <div class="container">
-        <p><button id="start" onclick="start()">start camera!</button></p>
+            <p><button id="start">start camera!</button></p>
 
-        <div>
-            <div style="float:left;margin-right:5px;">
-                <p><video id="video-tag" width="240" height="180" autoplay=true /></p>
+            <div>
+                <div style="float:left;margin-right:5px;">
+                    <p><video id="video-tag" width="240" height="180" autoplay=true /></p>
+                </div>
+                <div style="float:left">
+                    <p><img id="image-tag" width="240"> </img>
+                    </p>
+                </div>
             </div>
-            <div style="float:left">
-                <p><img id="image-tag" width="240"> </img></p>
+
+            <div style="width: 240px">
+                <p><button id="takephoto">take photo</button></p>
+                <input type="range" id="zoom-slider" min="0" , max="0">
+                <output id="zoom-slider-value"></output>
             </div>
         </div>
-
-        <div style="width: 240px">
-            <p><button onclick="takePhoto()">take photo</button></p>
-            <input type="range" id="zoom-slider" min="0" , max="0">
-            <output id="zoom-slider-value"></output>
-        </div>
-    </div>
 
 
     </div>
