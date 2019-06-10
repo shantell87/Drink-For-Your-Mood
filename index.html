@@ -40,34 +40,38 @@
             <div class="inner">
                 <nav class="navbar navbar-light bg-light">
                     <a class="navbar-brand" href="#">
-                        <img src="./assets/images/emoji.png" width="30" height="30" class="d-inline-block align-top" alt="">
                         <strong>A Drink For Your Mood</strong>
-                    </a>
-                </nav>
+                        <!-- Navbar End -->
+
+                        <!-- date Input -->
+                        <div class="container mt-5 mb-5 bg-light" style="width: 500px; height:150px">
+                            <H1>Confirm Your Birthdate</H1>
+                            <input type="date" id="picker" class="form-control text-center">
+                            <button type="submit" class="btn btn-primary mt-2" id="submit">Submit</button>
+                        </div>
+
+                        <div class="invisible mt-5 mb-5 bg-light" style="width: 600px" id="ageRequirement">
+                            <H1>You must be 21+ to enter this site!</H1>
+                        </div>
+
+
             </div>
-        </header>
-        <!-- Navbar End -->
+            <!-- Wrapper End -->
 
-        <!-- date Input -->
-        <div class="container mt-5 mb-5 bg-light" style="width: 500px; height:150px">
-            <H1>Confirm Your Birthdate</H1>
-            <input type="date" id="picker" class="form-control text-center">
-            <button type="submit" class="btn btn-primary mt-2" id="submit">Submit</button>
-        </div>
-
-        <div class="invisible mt-5 mb-5 bg-light" style="width: 600px" id="ageRequirement">
-            <H1>You must be 21+ to enter this site!</H1>
-        </div>
-
-
-    </div>
-    <!-- Wrapper End -->
-
-    <!-- Footer -->
-    <footer class="footer mt-auto py-3 bg-light">
-        <p>@TEAM R.S.G.</p>
-    </footer>
-    <script src="./assets/js/app.js"></script>
+            <!-- Footer -->
+            <footer class="footer mt-auto py-3 bg-light">
+                <div class="d-flex justify-content-between">
+                    <p>@TEAM R.S.G.</p>
+                    <ul class="navbar-nav">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Features</a>
+                        </li>
+                    </ul>
+                </div>
+            </footer>
+            <script src="./assets/js/app.js"></script>
 </body>
 
 </html>
