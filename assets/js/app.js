@@ -117,18 +117,29 @@ $(document).ready(function() {
                     var queryURL = `https://api-us.faceplusplus.com/facepp/v3/detect?image_base64=${base64data}&api_key=XtvBZyeUXRy0uOEtl1mlG61af7JzBlIj&api_secret=tYNC1LAnUmHhUw_1IXhLLyKJXcZRHuvo`
 
                     $.ajax({
-                        url: queryURL,
-                        method: "GET"
-                    }).then(function(response) {
-                        console.log(`FACE++: ${response}`);
-                    });
-                    // console.log(URL.createObjectURL(blob));
+                            // passing object through ajax
+                            url: 'https://api-us.faceplusplus.com/facepp/v3/detect',
+                            method: "POST",
+                            data: {
+                                api_key: 'XtvBZyeUXRy0uOEtl1mlG61af7JzBlIj',
+                                api_secret: 'tYNC1LAnUmHhUw_1IXhLLyKJXcZRHuvo',
+                                image_base64: base64data,
+                                return_attributes: 'gender,age,emotion'
+                            }
+                        })
+                        .then(function(response) {
+                            console.log(`FACE++:`, response);
+                        })
+                        .catch(e => {
+                            console.log(e);
+                        })
+                        // console.log(URL.createObjectURL(blob));
 
                 }
             })
-            // .catch((err) => {
-            //     console.error("takePhoto() failed: ", e);
-            // });
+            .catch(e => {
+                console.error("takePhoto() failed: ", e);
+            });
     })
 });
 
