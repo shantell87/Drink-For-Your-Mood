@@ -93,7 +93,7 @@ function gotMedia(mediastream) {
 
 }
 
-$('#takephoto').on('click', takePhoto() => {
+$('#takePhoto').on('click', takePhoto() => {
             imageCapturer.takePhoto()
                 .then((blob) => {
                     console.log("Photo taken: " + blob.type + ", " + blob.size + "B")
