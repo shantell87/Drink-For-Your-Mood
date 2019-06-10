@@ -53,21 +53,19 @@
 
         <!-- image capture -->
         <div class="container">
-        <p><button id="start" onclick="start()">start camera!</button></p>
+        <button id="start">start camera!</button>
 
         <div>
             <div style="float:left;margin-right:5px;">
-                <p><video id="video-tag" width="240" height="180" autoplay=true /></p>
+                <video id="video-tag" width="240" height="180" autoplay=true>
             </div>
             <div style="float:left">
-                <p><img id="image-tag" width="240"> </img></p>
+                <img id="image-tag" width="240">
             </div>
         </div>
 
         <div style="width: 240px">
-            <p><button onclick="takePhoto()">take photo</button></p>
-            <input type="range" id="zoom-slider" min="0" , max="0">
-            <output id="zoom-slider-value"></output>
+            <button>take photo</button>
         </div>
     </div>
 
