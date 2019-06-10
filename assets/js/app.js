@@ -46,30 +46,88 @@ $('#submit').on('click', function() {
 
 // object for 50 different drink options
 
+//Check if browser supports camera use
+// const supported = 'mediaDevices' in navigator;
+
+
 // take photo and store in variable
+// const player = $('#player');
+// const canvas = $('#canvas');
+// const context = canvas.getContext('2d');
+// const captureButton = $('#capture');
 
+// const constraints = {
+//     video: true,
+// };
 
-const player = $('#player');
-const canvas = $('#canvas');
-const context = canvas.getContext('2d');
-const captureButton = $('#capture');
+// captureButton.on('click', () => {
+//     console.log("clicked!");
+//     // Draw the video frame to the canvas.
+//     context.drawImage(player, 0, 0, canvas.width, canvas.height);
+//     // Stop all video streams.
+//     player.srcObject.getVideoTracks().forEach(track => track.stop());
+// });
 
-const constraints = {
-    video: true,
-};
+// navigator.mediaDevices.getUserMedia(constraints)
+//     .then((stream) => {
+//         // Attach the video stream to the video element and autoplay.
+//         player.srcObject = stream;
+//     });
 
-captureButton.on('click', () => {
-    // Draw the video frame to the canvas.
-    context.drawImage(player, 0, 0, canvas.width, canvas.height);
-    // Stop all video streams.
-    player.srcObject.getVideoTracks().forEach(track => track.stop());
-});
+const constraints = { "video": { width: { exact: 320 } } };
+var videoTag = $('#video-tag');
+var imageTag = $('#image-tag');
+var zoomSlider = $("#zoom-slider");
+var zoomSliderValue = $("#zoom-slider-value");
+var imageCapturer;
 
-navigator.mediaDevices.getUserMedia(constraints)
-    .then((stream) => {
-        // Attach the video stream to the video element and autoplay.
-        player.srcObject = stream;
-    });
+function start() {
+    navigator.mediaDevices.getUserMedia(constraints)
+        .then(gotMedia)
+        .catch(e => { console.error('getUserMedia() failed: ', e); });
+}
+
+function gotMedia(mediastream) {
+    videoTag.srcObject = mediastream;
+    $('#start').disabled = true;
+
+    var videoTrack = mediastream.getVideoTracks()[0];
+    imageCapturer = new ImageCapture(videoTrack);
+
+    // Timeout needed in Chrome, see https://crbug.com/711524
+    setTimeout(() => {
+        const capabilities = videoTrack.getCapabilities()
+            // Check whether zoom is supported or not.
+        if (!capabilities.zoom) {
+            return;
+        }
+
+        zoomSlider.min = capabilities.zoom.min;
+        zoomSlider.max = capabilities.zoom.max;
+        zoomSlider.step = capabilities.zoom.step;
+
+        zoomSlider.value = zoomSliderValue.value = videoTrack.getSettings().zoom;
+        zoomSliderValue.value = zoomSlider.value;
+
+        zoomSlider.oninput = function() {
+            zoomSliderValue.value = zoomSlider.value;
+            videoTrack.applyConstraints({ advanced: [{ zoom: zoomSlider.value }] });
+        }
+    }, 500);
+
+}
+
+function takePhoto() {
+    imageCapturer.takePhoto()
+        .then((blob) => {
+            console.log("Photo taken: " + blob.type + ", " + blob.size + "B")
+            imageTag.src = URL.createObjectURL(blob);
+        })
+        .catch((err) => {
+            console.error("takePhoto() failed: ", e);
+        });
+}
+
 
 
 // run through face ++ api
