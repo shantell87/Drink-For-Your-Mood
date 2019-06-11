@@ -1,11 +1,11 @@
 // **** A Drink For Your Mood ****
-
+var slider = "";
 
 // *** Birthday Page Confirmation ***
 $(document).ready(function() {
 
     // on click function for submit
-    $('#submit').on('click', function() {
+    $('#submit-birthday').on('click', function() {
         // variable for user inputted date
         var date = $('#picker').val();
         console.log("date.valueOF(): " + date.valueOf());
@@ -37,32 +37,43 @@ $(document).ready(function() {
 // *** Description of Service & Slider page ***
 $(document).ready(function() {
     $('.form-control-range').on('input', function () {
-    var output = parseInt($('.form-control-range').val());
-    if(output < 14) { 
-        $('.reader').text("Sad");
-    }if((output >= 14) && (output < 28)) { 
-        $('.reader').text("Angry");
-    }if((output >= 28) && (output < 42)) { 
-        $('.reader').text("Afraid");
-    }if((output >= 42) && (output < 56)) { 
-        $('.reader').text("Neutral");
-    }if((output >= 56) && (output < 70)) { 
-        $('.reader').text("Anxious");
-    }if((output >= 70) && (output < 84)) { 
-        $('.reader').text("Surprised");
-    }if((output >= 84) && (output < 100)) { 
-        $('.reader').text("Happy");
-    };
-    
+        var output = parseInt($('.form-control-range').val());
+        if(output <= 14) { 
+            $('.reader').text("Sad");
+            slider = "sad";
+        }if((output > 14) && (output <= 28)) { 
+            $('.reader').text("Angry");
+            slider = "angry";
+        }if((output > 28) && (output <= 42)) { 
+            $('.reader').text("Afraid");
+            slider = "afraid";
+        }if((output > 42) && (output <= 56)) { 
+            $('.reader').text("Neutral");
+            slider = "neutral";
+        }if((output > 56) && (output <= 70)) { 
+            $('.reader').text("Anxious");
+            slider = "anxious";
+        }if((output > 70) && (output <= 84)) { 
+            $('.reader').text("Surprised");
+            slider = "surprised";
+        }if((output > 84) && (output <= 100)) { 
+            $('.reader').text("Happy");
+            slider = "happy";
+        };
 
-    // var $reading = $('<p>').text(output);
+    })    
     
-    // $('.slider-output').text($reading);
+    $('#submit-slider').on('click', function(){
+        if((slider === "sad") || (slider === "angry") || (slider === "afraid") || (slider === "neutral") || (slider === "anxious") || (slider === "surprised") || (slider === "happy")) {
+            window.location = "wireframe3.html";
+        }else{
+            $('.reader').text("Please adjust slider ");
+        }
+    })   
 
     // if accepted can proceed to evaluation & drink recommendation page after inputtnig slider info
     
     // else will proceed to drink recommendation page after slider page instead of face ++
-    })    
 })
 
 // *** Evaluation & Drink Recommendation page ***
