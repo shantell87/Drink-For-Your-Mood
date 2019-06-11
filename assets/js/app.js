@@ -25,10 +25,15 @@ $(document).ready(function() {
             // if statement for date entered
         if (ofAge >= 662256000000) {
             // if 21+ proceed to next page
-            console.log("Let's Drink!")
+            $('#ageRequirement').removeClass('invisible').html(`<h1>Let's Drink!</h1>`);
+            setTimeout(function() {
+                window.location = "wireframe2.html";
+            }, 4500);
+
         } else {
             // else denied!
-            console.log("NOPE! Rejected");
+            // console.log("NOPE! Rejected");
+            $('#ageRequirement').removeClass('invisible');
         }
     })
 
@@ -37,6 +42,7 @@ $(document).ready(function() {
 // *** Description of Service & Slider page ***
 
 $(document).ready(function() {
+
     $('.form-control-range').on('input', function() {
         var output = parseInt($('.form-control-range').val());
         if (output <= 14) {
@@ -346,26 +352,27 @@ $(document).ready(function() {
                                 console.log(`Drinks Data: ${response.drinks[0]}`);
                             });
 
+
                             // link to picture of drink in the html
                             let imgLink = response.drinks[0].strDrinkThumb;
                             // put that link in our page
-                            $('').attr('src',imgLink);
-                            
+                            $('cocktailImg').attr('src', imgLink);
+
                             // ingredients
-                            let ingredients = (response.drinks[0].strIngredient1 + ", " + response.drinks[0].strIngredient2  + ", " +  response.drinks[0].strIngredient3 + ", " +  response.drinks[0].strIngredient4 + ", " +  response.drinks[0].strIngredient5 + ", " + response.drinks[0].strIngredient6  + ", " + response.drinks[0].strIngredient7 + ", " + response.drinks[0].strIngredient8 + ", " + response.drinks[0].strIngredient9 + ", " + response.drinks[0].strIngredient10);
+                            let ingredients = (response.drinks[0].strIngredient1 + ", " + response.drinks[0].strIngredient2 + ", " + response.drinks[0].strIngredient3 + ", " + response.drinks[0].strIngredient4 + ", " + response.drinks[0].strIngredient5 + ", " + response.drinks[0].strIngredient6 + ", " + response.drinks[0].strIngredient7 + ", " + response.drinks[0].strIngredient8 + ", " + response.drinks[0].strIngredient9 + ", " + response.drinks[0].strIngredient10);
                             // put ingredients in our page
-                            $('#ingredients').text(ingredients);
-                            
+                            $('#Ingredients').text(ingredients);
+
                             // instructions
                             let instructions = response.drinks[0].strInstructions;
                             // put instructions in our page
-                            $('#instructions').text(instructions);
+                            $('#Instructions').text(instructions);
 
                         })
                         .catch(e => {
                             console.log(e);
                         })
-                        
+
 
                 }
             })
