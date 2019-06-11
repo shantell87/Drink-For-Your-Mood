@@ -348,20 +348,24 @@ $(document).ready(function() {
 
                             // link to picture of drink in the html
                             let imgLink = response.drinks[0].strDrinkThumb;
-                            // console.log(response.drinks.strDrinkThumb.valueOf());
-
+                            // put that link in our page
+                            $('').attr('src',imgLink);
+                            
                             // ingredients
-                            // ingredients array
-                            // response.drinks.stringredient[i]
-
+                            let ingredients = (response.drinks[0].strIngredient1 + ", " + response.drinks[0].strIngredient2  + ", " +  response.drinks[0].strIngredient3 + ", " +  response.drinks[0].strIngredient4 + ", " +  response.drinks[0].strIngredient5 + ", " + response.drinks[0].strIngredient6  + ", " + response.drinks[0].strIngredient7 + ", " + response.drinks[0].strIngredient8 + ", " + response.drinks[0].strIngredient9 + ", " + response.drinks[0].strIngredient10);
+                            // put ingredients in our page
+                            $('#ingredients').text(ingredients);
+                            
                             // instructions
-                            // response.drinks.strInstructions
+                            let instructions = response.drinks[0].strInstructions;
+                            // put instructions in our page
+                            $('#instructions').text(instructions);
 
                         })
                         .catch(e => {
                             console.log(e);
                         })
-                        // console.log(URL.createObjectURL(blob));
+                        
 
                 }
             })
@@ -371,38 +375,4 @@ $(document).ready(function() {
     })
 });
 
-
-// run through face ++ api
-
-
-
-// variable for query URL
-
-// AJAX call using query url and photo
-var queryURL = `https://api-us.faceplusplus.com/facepp/v3/face/analyze&api_key=XtvBZyeUXRy0uOEtl1mlG61af7JzBlIj&api_secret=tYNC1LAnUmHhUw_1IXhLLyKJXcZRHuvo`
-
-// then response function
-
-// pull user slider input from previous page
-
-// pull face ++ results
-
-// compare face ++ results & slider results
-
-
-// SECONDARY - pull weather from weather api for the decision
-
-// if statement with accepted camera permissions
-
-// if accepted, use face ++ & weather to come up with drink recommendation
-
-
-// else give drink recommendation based on slider
-
-// // DISPLAY 
-
-
-
 // *** About Us & Contact Page ***
-
-// Contact us store the user inputs in a database?
