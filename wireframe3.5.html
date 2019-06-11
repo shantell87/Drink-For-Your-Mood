@@ -55,60 +55,53 @@
         </header>
         <!-- Navbar End -->
 
-        <!-- image capture -->
 
-        <div class="container mt-5 mb-5 p-3 bg-light">
-            <!--row 1-->
-            <div class="row mb-4">
-                <div class="col-md">
-                    <button id="start">start camera!</button>
-                </div>
+<div class="container" id="outcome">
+        <div class="card mt-5 mb-5">
+            <h5 class="card-header">Results!</h5>
+            <div class="card-body">
+                <p class="card-text" id="userEmo">You said you were:</p>
+                <p class="card-text" id="apiEmo">Your face showed you to be:</p>
+                <p class="card-text" id="drinkChoice">We reccomend you have a: </p>
             </div>
+        </div>
+    </div>
 
-            <!--row 2-->
-            <div class="row mb-3">
-                <div class="col-lg-6 d-flex justify-content-center">
-                    <video id="video-tag" width="340" height="180" autoplay=true style="border: solid 3px">
-                </div>
+    <!-- Drink Details Container -->
+    <div class="container mt-5" id="drinkDetails">
 
-                <div class="col-lg-6 d-flex justify-content-center">
-                    <img id="image-tag" width="340" height="180" autoplay=true style="border: solid 3px">
+        <div class="card mb-3">
+                <h5 id="cocktailName" class="card-header">Your Cocktail Details!</h5>
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img id="cocktailImg" src="http://lorempixel.com/150/150/" class="card-img" alt="...">
                 </div>
-            </div>
-
-            <!--row 3-->
-            <div class="row mt-2">
-                <div class="col-lg-6 d-flex justify-content-center">
-                    <button id="takePhoto">Take Photo</button>
-                </div>
-                <div class="col-lg-6 d-flex justify-content-center">
-                    <p>Hello Emotions</p>
-                </div>
-            </div>
-
-            <!-- Results Container -->
-            <div class="container" id="outcome">
-                <div class="card mt-5 mb-5">
-                    <h5 class="card-header">Results!</h5>
-                    <div class="card-body">
-                        <p class="card-text" id="userEmo">You said you were:</p>
-                        <p class="card-text" id="apiEmo">Your face showed you to be:</p>
-                        <p class="card-text" id="drinkChoice">We reccomend you have a: </p>
+                <div class="col-md-8">
+                    <div class="card-body" style="height:175px" >
+                        <h5 class="card-title">Ingredients</h5>
+                        <p class="card-text" id="ingredients">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor
+                            culpa similique libero vel esse quam quos quidem tenetur perspiciatis veritatis.
+                            Vitae tenetur laboriosam et recusandae eligendi sequi iure unde explicabo.</p>
+                    </div>
+                    <div class="card-body" style="height:175px" >
+                        <h5 class="card-title">How to mix it!</h5>
+                        <p class="card-text" id="recipe">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae
+                            placeat ipsam hic eum architecto numquam magnam consectetur repellendus maxime
+                            beatae! Unde sapiente nesciunt incidunt iusto dignissimos officia optio quibusdam
+                            modi!</p>
                     </div>
                 </div>
             </div>
-
-
         </div>
-        <!--img container end-->
+    </div>
 
-    </div> <!-- main container end-->
+</div> <!-- main container end-->
 
-    <!-- Footer -->
-    <footer class="footer mt-auto py-3 bg-light">
-        <p>@TEAM R.S.G.</p>
-    </footer>
-    <script src="./assets/js/app.js"></script>
+<!-- Footer -->
+<footer class="footer mt-auto py-3 bg-light">
+    <p>@TEAM R.S.G.</p>
+</footer>
+<script src="./assets/js/app.js"></script>
 </body>
 
 </html>
