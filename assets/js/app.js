@@ -159,6 +159,58 @@ var queryURL = `https://api-us.faceplusplus.com/facepp/v3/face/analyze&api_key=X
 
 // compare face ++ results & slider results
 
+// If first slider chosen and Face++ reads, then recommend:
+
+// Slider: Sadness	Face++: Sadness	    Cocktail Reco: Whiskey Sour
+// Slider: Anger	Face++: Sadness	    Cocktail Reco: Mulled Wine
+// Slider: Angst	Face++: Sadness	    Cocktail Reco: Tequila Slammer
+// Slider: Fear	    Face++: Sadness	    Cocktail Reco: Grass Skirt
+// Slider: Neutral	Face++: Sadness	    Cocktail Reco: Mimosa
+// Slider: Surprise	Face++: Sadness	    Cocktail Reco: Mudslinger
+// Slider: Happiness	Face++: Sadness	    Cocktail Reco: Cosmopolitan
+// Slider: Sad	    Face++: Anger	Cocktail Reco: Blue Lagoon
+// Slider: Anger	Face++: Anger	Cocktail Reco: Tequila Surprise
+// Slider: Angst	Face++: Anger	Cocktail Reco: Creme de Menthe
+// Slider: Fear	    Face++: Anger	Cocktail Reco: Big Red
+// Slider: Neutral	Face++: Anger	Cocktail Reco: The Jimmy Conway
+// Slider: Surprise	Face++: Anger	Cocktail Reco: Mother's Milk
+// Slider: Happiness	Face++: Anger	Cocktail Reco: Jackhammer
+// Slider: Sad	    Face++: Disgust	    Cocktail Reco: B-52
+// Slider: Anger	Face++: Disgust	    Cocktail Reco: Thriller
+// Slider: Angst	Face++: Disgust	    Cocktail Reco: Mojito
+// Slider: Fear	    Face++: Disgust	    Cocktail Reco: Bloody Mary
+// Slider: Neutral	Face++: Disgust	    Cocktail Reco: Penicillin
+// Slider: Surprise	Face++: Disgust	    Cocktail Reco: Pink Lady
+// Slider: Happiness	Face++: Disgust	    Cocktail Reco: Belgian Blue
+// Slider: Sad	    Face++: Fear	Cocktail Reco: Coke and Drops
+// Slider: Anger	Face++: Fear	Cocktail Reco: Dirty Martini
+// Slider: Angst	Face++: Fear	Cocktail Reco: Berry Deadly
+// Slider: Fear	    Face++: Fear	Cocktail Reco: Martini
+// Slider: Neutral	Face++: Fear	Cocktail Reco: Gin And Tonic
+// Slider: Surprise	Face++: Fear	Cocktail Reco: Jello Shots
+// Slider: Happiness	Face++: Fear	Cocktail Reco: Paloma
+// Slider: Sad	    Face++: Neutral	    Cocktail Reco: Vesuvio
+// Slider: Anger	Face++: Neutral	    Cocktail Reco: Zippy's Revenge
+// Slider: Angst	Face++: Neutral	    Cocktail Reco: Pina Colada
+// Slider: Fear	    Face++: Neutral	    Cocktail Reco: Zinger
+// Slider: Neutral	Face++: Neutral	    Cocktail Reco: Old Fashioned
+// Slider: Surprise	Face++: Neutral	    Cocktail Reco: Bellini
+// Slider: Happiness	Face++: Neutral	    Cocktail Reco: Strawberry Daiquiri
+// Slider: Sad	    Face++: Surprise	Cocktail Reco: Brain Fart
+// Slider: Anger	Face++: Surprise	Cocktail Reco: Gimlet
+// Slider: Angst	Face++: Surprise	Cocktail Reco: Paradise
+// Slider: Fear	    Face++: Surprise	Cocktail Reco: Zenmeister
+// Slider: Neutral	Face++: Surprise	Cocktail Reco: Boulevardier
+// Slider: Surprise	Face++: Surprise	Cocktail Reco: Pisco Sour
+// Slider: Happiness	Face++: Surprise	Cocktail Reco: Ipamena
+// Slider: Sad	    Face++: Happiness	Cocktail Reco: Negroni
+// Slider: Anger	Face++: Happiness	Cocktail Reco: Manhattan
+// Slider: Angst	Face++: Happiness	Cocktail Reco: Vesper 
+// Slider: Fear	    Face++: Happiness	Cocktail Reco: Flaming Lamborghini
+// Slider: Neutral	Face++: Happiness	Cocktail Reco: Yellow Bird
+// Slider: Surprise	Face++: Happiness	Cocktail Reco: Moscow Mule
+// Slider: Happiness	Face++: Happiness	Cocktail Reco: Margarita
+
 // SECONDARY - pull weather from weather api for the decision
 
 // if statement with accepted camera permissions
