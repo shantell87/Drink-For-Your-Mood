@@ -37,21 +37,43 @@ $(document).ready(function() {
 // *** Description of Service & Slider page ***
 
 $(document).ready(function() {
-    // if statement for acceptance of camera use
+    $('.form-control-range').on('input', function () {
+    var output = parseInt($('.form-control-range').val());
+    if(output < 14) { 
+        $('.reader').text("Sad");
+    }if((output >= 14) && (output < 28)) { 
+        $('.reader').text("Angry");
+    }if((output >= 28) && (output < 42)) { 
+        $('.reader').text("Afraid");
+    }if((output >= 42) && (output < 56)) { 
+        $('.reader').text("Neutral");
+    }if((output >= 56) && (output < 70)) { 
+        $('.reader').text("Anxious");
+    }if((output >= 70) && (output < 84)) { 
+        $('.reader').text("Surprised");
+    }if((output >= 84) && (output < 100)) { 
+        $('.reader').text("Happy");
+    };
+    
+
+    // var $reading = $('<p>').text(output);
+    
+    // $('.slider-output').text($reading);
 
     // if accepted can proceed to evaluation & drink recommendation page after inputtnig slider info
-
+    
     // else will proceed to drink recommendation page after slider page instead of face ++
-
-});
+    })    
+})
 
 // *** Evaluation & Drink Recommendation page ***
 
 $(document).ready(function() {
     // object for 50 different drink options
-
+    
     //Check if browser supports camera use
-    // const supported = 'mediaDevices' in navigator;
+    // if statement for acceptance of camera use
+    const supported = 'mediaDevices' in navigator;
 
     const constraints = { "video": { width: { exact: 320 } } };
     // var videoTag = $('#video-tag');
@@ -167,6 +189,8 @@ $(document).ready(function() {
 
 
 // run through face ++ api
+
+
 
 // variable for query URL
 
