@@ -35,6 +35,7 @@ $(document).ready(function() {
 });
 
 // *** Description of Service & Slider page ***
+
 $(document).ready(function() {
     // if statement for acceptance of camera use
 
@@ -45,6 +46,7 @@ $(document).ready(function() {
 });
 
 // *** Evaluation & Drink Recommendation page ***
+
 $(document).ready(function() {
     // object for 50 different drink options
 
@@ -61,14 +63,12 @@ $(document).ready(function() {
     const imageTag = document.querySelector('#image-tag');
 
     $('#start').on('click', function start() {
-        console.log("HELLO");
         navigator.mediaDevices.getUserMedia(constraints)
             .then(gotMedia)
             .catch(e => { console.error('getUserMedia() failed: ', e); });
     })
 
     function gotMedia(mediastream) {
-        // console.log(videoTag);
 
         videoTag.srcObject = mediastream;
 
@@ -128,7 +128,29 @@ $(document).ready(function() {
                             }
                         })
                         .then(function(response) {
-                            console.log(`FACE++:`, response);
+                            // console.log(`FACE++:`, response);
+                            // pulls emotion from the main face in the photo
+                            let obj = response.faces[0].attributes.emotion.valueOf();
+
+                            // console.log(obj);
+
+                            let max = 0
+                            let whichKey = false
+                            for (let key in obj) {
+                                // loops over the object
+                                if (max < obj[key]) {
+                                    // sets max to object's value of the key
+                                    max = obj[key];
+                                    whichKey = key;
+                                }
+
+                            }
+                            // console.log(max);
+                            // console.log(whichKey);
+
+
+                            // parseInt(+(emotions).chain().pairs().max(function(p) { return p[1]; }).value()[0]);
+
                         })
                         .catch(e => {
                             console.log(e);
