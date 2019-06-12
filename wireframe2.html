@@ -36,59 +36,68 @@
 
 <body class="text-center d-flex flex-column h-100">
     <!-- bcg image -->
-    <div class="view" style="background-image: url(./assets/images/bar.jpg); ; background-repeat: no-repeat; background-size: cover; background-position: center center; height: 100%">
-    
+    <div class="view"
+        style="background-image: url(./assets/images/bar.jpg); ; background-repeat: no-repeat; background-size: cover; background-position: center center; height: 100%">
+
         <!-- Navbar -->
-    <header class="masthead mb-auto px-5">
-        <div class="row navbar navbar-light bg-light" aria-label="breadcrumb">
-            <div class="col d-flex justify-content-start">
-                <a class="navbar-brand" href="#">
-                    <img src="./assets/images/emoji.png" width="30" height="30" class="d-inline-block align-top" alt="">
-                    <strong>A Drink For Your Mood</strong>
-                </a>
+        <header class="masthead mb-auto px-5">
+            <div class="row navbar navbar-light" style="background-color:#2d1606;" aria-label="breadcrumb">
+                <div class="col d-flex justify-content-start">
+                    <a class="navbar-brand" href="#">
+                        <img src="./assets/images/emoji.png" width="30" height="30" class="d-inline-block align-top"
+                            alt="">
+                        <strong style="color: white">A Drink For Your Mood</strong>
+                    </a>
+                </div>
+                <div class="col d-flex justify-content-end">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item active" aria-current="page">Mood Check</li>
+                    </ol>
+                </div>
             </div>
-            <div class="col d-flex justify-content-end">
-                <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item active" aria-current="page">Mood Selector</li>
-                </ol>
+        </header>
+        <!-- Navbar End -->
+
+        <div class="container">
+
+            <div class="card mt-5 mb-5">
+                <h5 class="card-header">Description</h5>
+                <div class="card-body">
+                    <p class="card-text">Before we take your picture and read your mood, we need for you to share how
+                        you feel your mood is at this current moment. Please use the below slider that runs from Sad
+                        (left) to Happy (right) and includes other moods like Surprised and Afraid. After you've
+                        selected your mood, please press Proceed.</p>
+                </div>
             </div>
-        </div>
-    </header>
-    <!-- Navbar End -->
-    
-    <div class="container">
 
-        <div class="card mt-5 mb-5">
-            <h5 class="card-header">Description</h5>
-            <div class="card-body">
-                <p class="card-text">Before we take your picture and read your mood, we need for you to share how you feel your mood is at this current moment. Please use the below slider that runs from Sad (left) to Happy (right) and includes other moods like Surprised and Afraid. After you've selected your mood, please press Proceed.</p>
+            <!-- slider container -->
+            <div class="container bg-light">
+                <div class="d-flex justify-content-center my-4 pt-4">
+                    <span class="font-weight-bold purple-text mr-2">Sad</span>
+                    <form class="range-field w-75 pt-1">
+                        <input class="form-control-range" value="50" type="range" min="0" max="100" />
+                    </form>
+                    <span class="font-weight-bold purple-text ml-2">Happy</span>
+                </div>
+                <div class="slider-output d-flex justify-content-center">
+                    <p class="font-weight-bold reader align-self-center mb-3 mr-4"></p>
+                    <button type="submit" class="btn btn-primary mb-3 mt-3" id="submit-slider">Proceed</button>
+                </div>
             </div>
-        </div>
+            <!-- slider container end -->
 
-        <div class="d-flex justify-content-center my-4">
-            <span class="font-weight-bold purple-text mr-2">Sad</span>
-            <form class="range-field w-75 pt-1">
-                <input class="form-control-range" value="50" type="range" min="0" max="100" />
-            </form>
-            <span class="font-weight-bold purple-text ml-2">Happy</span>
         </div>
-        <div class="slider-output d-flex justify-content-center">
-                <p class="font-weight-bold reader align-self-center mb-3 mr-4"></p>
-                <button type="submit" class="btn btn-primary mb-3" id="submit-slider">Proceed</button>
-        </div>
-
+        <!-- body container End -->
     </div>
-    <!-- body container End -->
-</div> 
-<!-- img container end -->
+    <!-- img container end -->
 
     <!-- Footer -->
-    <footer class="footer mt-auto py-3 bg-light px-5">
+    <footer class="footer mt-auto py-3 px-5" style="background-color:#2d1606">
         <!-- 8 16 8 16 // 1078 40   -->
         <div class="row">
             <div class="col">
                 <ul class="nav justify-content-start">
-                    <li class="nav-item disabled">@TEAM R.S.G.</li>
+                    <li class="nav-item disabled py-2 px-3" style="color: white">@TEAM R.S.G.</li>
                 </ul>
             </div>
             <div class="col-sm-6">
@@ -102,6 +111,7 @@
                 </ul>
             </div>
         </div>
+
     </footer>
     <script src="./assets/js/app.js"></script>
 
