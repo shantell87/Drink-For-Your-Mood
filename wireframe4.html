@@ -44,12 +44,41 @@
                     <a class="navbar-brand" href="#">
                         <img src="./assets/images/emoji.png" width="30" height="30" class="d-inline-block align-top"
                             alt="">
-                       <strong>A Drink For Your Mood</strong> 
+                        <strong>A Drink For Your Mood</strong>
                     </a>
                 </nav>
             </div>
         </header>
         <!-- Navbar End -->
+        <div class="container" id="about">
+            <div class="card mt-5 mb-5">
+                <h5 class="card-header">About The Team!</h5>
+                <div class="card-body">
+                    <p class="card-text" id="userEmo">:-)</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container bg-light" id="contact">
+            <form style="padding: 35px;">
+                <div class="form-group">
+                    <label class="d-flex justify-content-left" for="FormControlInput1">Full Name</label>
+                    <input type="text" class="form-control" id="userName" placeholder="John Jane">
+                </div>
+
+                <div class="form-group">
+                    <label class="d-flex justify-content-left" for="FormControlEmailInput">Email</label>
+                    <input type="email" class="form-control" id="userEmail" placeholder="email@gmail.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="d-flex justify-content-left" for="FormControlTextarea">What are your thoughts?</label>
+                    <textarea class="form-control" id="userMessage" rows="3" style="height: 150px"></textarea>
+                </div>
+                <button type="submit" class="btn btn-dark">Submit</button>
+            </form>
+        </div>
 
 
 
