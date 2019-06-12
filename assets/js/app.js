@@ -1,5 +1,6 @@
 // **** A Drink For Your Mood ****
-var slider = "";
+let slider = "";
+let facePlusPlusEmotion = "";
 
 // *** Birthday Page Confirmation ***
 $(document).ready(function() {
@@ -72,17 +73,27 @@ $(document).ready(function() {
         if ((output > 84) && (output <= 100)) {
             $('.reader').text("Happy");
             slider = "happy";
-        };
+        }
 
     })
+
+
 
     $('#submit-slider').on('click', function() {
         if ((slider === "sad") || (slider === "angry") || (slider === "afraid") || (slider === "neutral") || (slider === "anxious") || (slider === "surprised") || (slider === "happy")) {
             window.location = "wireframe3.html";
+
+            // store in local storage
+            // Clear absolutely everything stored in localStorage using localStorage.clear()
+            localStorage.clear();
+
+            // Store the username into localStorage using "localStorage.setItem"
+            localStorage.setItem("sliderEmotion", slider);
         } else {
             $('.reader').text("Please adjust slider ");
         }
     })
+
 
     // if accepted can proceed to evaluation & drink recommendation page after inputtnig slider info
 
@@ -92,8 +103,9 @@ $(document).ready(function() {
 // *** Evaluation & Drink Recommendation page ***
 
 $(document).ready(function() {
+    slider = localStorage.getItem("sliderEmotion");
     // object for 50 different drink options
-
+    // console.log("SLIDER: " + slider);
     //Check if browser supports camera use
     // if statement for acceptance of camera use
     const supported = 'mediaDevices' in navigator;
@@ -114,10 +126,12 @@ $(document).ready(function() {
     })
 
     function gotMedia(mediastream) {
+        // to make sure we are getting video from the user
 
         videoTag.srcObject = mediastream;
 
         $('#start').disabled = true;
+        // disables start button
 
         var videoTrack = mediastream.getVideoTracks()[0];
         imageCapturer = new ImageCapture(videoTrack);
@@ -146,7 +160,7 @@ $(document).ready(function() {
     }
 
     $('#takePhoto').on('click', function takePhoto() {
-        // console.log("clicked");
+        console.log("PHOTO TAKEN");
         imageCapturer.takePhoto()
             .then((blob) => {
                 console.log("Photo taken: " + blob.type + ", " + blob.size + "B")
@@ -173,11 +187,11 @@ $(document).ready(function() {
                             }
                         })
                         .then(function(response) {
-                            console.log(`FACE++:`, response);
+                            console.log(`FACE++:`, response.faces[0].valueOf());
                             // pulls emotion from the main face in the photo
                             let obj = response.faces[0].attributes.emotion.valueOf();
 
-                            // console.log(obj);
+                            console.log(`This is our emotion return ${obj}`);
 
                             let max = 0
                             let whichKey = false
@@ -190,6 +204,8 @@ $(document).ready(function() {
                                 }
 
                             }
+                            console.log(`This is the obj % emotion ${max}`);
+                            console.log(`This is the obj largest % emotion ${whichKey}`);
                             let drinks = "";
                             // If first slider chosen and Face++ reads, then recommend:
                             // Slider: Sadness	Face++: Sadness	    Cocktail Reco: Whiskey Sour
@@ -345,29 +361,64 @@ $(document).ready(function() {
 
                             var queryURL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drinks}`;
 
+
+                            // set global variable to facePlusPlusEmotion
+                            facePlusPlusEmotion = whichKey;
+
+
                             $.ajax({
                                 url: queryURL,
                                 method: "GET"
                             }).then(function(response) {
-                                console.log(`Drinks Data: ${response.drinks[0]}`);
+                                console.log(`FULL DRINK DATA: ${JSON.stringify(response.drinks[0])}`);
+
+
+                                // name of the drink
+                                let drinkName = JSON.stringify(response.drinks[0].strDrink);
+                                // console.log(JSON.stringify(`This is the name of the drink: ${drinkName}`));
+
+
+                                // link to picture of drink in the html
+                                let imgLink = JSON.stringify(response.drinks[0].strDrinkThumb);
+                                // console.log(JSON.stringify(`This is the image link: ${response.drinks[0].strDrinkThumb}`));
+
+
+                                // ingredients
+                                let ingredients = JSON.stringify(response.drinks[0].strIngredient1 + ", " + response.drinks[0].strIngredient2 + ", " + response.drinks[0].strIngredient3 + ", " + response.drinks[0].strIngredient4 + ", " + response.drinks[0].strIngredient5 + ", " + response.drinks[0].strIngredient6 + ", " + response.drinks[0].strIngredient7 + ", " + response.drinks[0].strIngredient8 + ", " + response.drinks[0].strIngredient9 + ", " + response.drinks[0].strIngredient10);
+
+
+                                // instructions
+                                let instructions = JSON.stringify(response.drinks[0].strInstructions);
+
+                                $('#acceptPhoto').on('click', function() {
+
+                                    $('#photo-results').removeClass('invisible');
+
+                                    // add to the page
+                                    $('#apiEmo').text(`Your face showed: ${facePlusPlusEmotion}`);
+                                })
+
+                                // *** AFTER CLICKING PROCESS PHOTO ***
+                                // user slider input
+                                // console.log(`THIS IS THE SLIDER INPUT: ${slider}`);
+                                // $('#userEmo').text(`${slider}`);
+                                // add drink choice to wireframe 3
+                                // $('#drinkChoice').html(`${drinkName}`);
+
+                                // *** ADD to wireframe 3.5 ***
+                                // put ingredients in our page
+                                $('#Ingredients').text(ingredients);
+                                // put instructions in our wireframe 3.5 page
+                                $('#recipe').text(instructions);
+                                // put that link to img in our page
+                                $('#cocktailImg').attr('src', imgLink);
+                                // user slider input
+                                $('#userEmo').text(`${slider}`);
+                                // add to the page
+                                $('#apiEmo').html(`${facePlusPlusEmotion}`);
+                                // add drink choice to wireframe 3
+                                $('#drinkChoice').html(`${drinkName}`);
                             });
-
-
-                            // link to picture of drink in the html
-                            let imgLink = response.drinks[0].strDrinkThumb;
-                            // put that link in our page
-                            $('cocktailImg').attr('src', imgLink);
-
-                            // ingredients
-                            let ingredients = (response.drinks[0].strIngredient1 + ", " + response.drinks[0].strIngredient2 + ", " + response.drinks[0].strIngredient3 + ", " + response.drinks[0].strIngredient4 + ", " + response.drinks[0].strIngredient5 + ", " + response.drinks[0].strIngredient6 + ", " + response.drinks[0].strIngredient7 + ", " + response.drinks[0].strIngredient8 + ", " + response.drinks[0].strIngredient9 + ", " + response.drinks[0].strIngredient10);
-                            // put ingredients in our page
-                            $('#Ingredients').text(ingredients);
-
-                            // instructions
-                            let instructions = response.drinks[0].strInstructions;
-                            // put instructions in our page
-                            $('#Instructions').text(instructions);
-
                         })
                         .catch(e => {
                             console.log(e);
