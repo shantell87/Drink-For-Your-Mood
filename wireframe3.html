@@ -9,9 +9,11 @@
     <title>A Drink for your Mood</title>
     <link rel="stylesheet" href="./assets/css/style.css">
     <!-- FAVICON -->
-    <link rel="icon" href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/198/face-with-uneven-eyes-and-wavy-mouth_1f974.png">
+    <link rel="icon"
+        href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/198/face-with-uneven-eyes-and-wavy-mouth_1f974.png">
     <!-- BOOTSTRAP -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <style>
@@ -23,28 +25,34 @@
             -ms-user-select: none;
             user-select: none;
         }
-        
+
         @media (min-width: 768px) {
             .bd-placeholder-img-lg {
                 font-size: 3.5rem;
             }
         }
+
+        #video-tag {
+            padding-top: 0 !important;
+        }
     </style>
 </head>
 
 <body class="text-center d-flex flex-column h-100">
+    <h1>apple</h1>
     <!-- Navbar -->
     <header class="masthead mb-auto px-5">
             <div class="row navbar navbar-light bg-light" aria-label="breadcrumb">
                 <div class="col d-flex justify-content-start">
                     <a class="navbar-brand" href="#">
-                        <img src="./assets/images/emoji.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                        <img src="./assets/images/emoji.png" width="30" height="30" class="d-inline-block align-top"
+                            alt="">
                         <strong>A Drink For Your Mood</strong>
                     </a>
                 </div>
                 <div class="col d-flex justify-content-end">
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="wireframe2.htmlgit pull">Mood Check</a></li>
+                        <li class="breadcrumb-item"><a href="wireframe2.html">Mood Check</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Pic Check</li>
                     </ol>
                 </div>
@@ -66,32 +74,37 @@
 
             <!--row 2-->
             <div class="row mb-3">
-                <div class="col-lg-6">
-                    <div class="d-flex justify-content-end">
-                        <video id="video-tag" width="340" height="180" autoplay=true style="border: solid 3px">
-                    </div>
+                <div class="col-lg-6 d-flex justify-content-center">
+                    <video id="video-tag" width="340" height="180" autoplay=true style="border: solid 3px">
                 </div>
-                <div class="col-lg-6">
-                    <div style="float:left;">
-                        <img id="image-tag" width="340" height="180" autoplay=true style="border: solid 3px">
-                    </div>
+
+                <div class="col-lg-6 d-flex justify-content-center">
+                    <img id="image-tag" width="340" height="180" autoplay=true style="border: solid 3px">
                 </div>
             </div>
 
             <!--row 3-->
             <div class="row mt-2">
-                <div class="col-med-6">
-                    <button id="takePhoto" class="btn btn-primary mb-3">take photo</button> 
+                <div class="col-lg-6 d-flex justify-content-center">
+                    <button id="takePhoto">Take Photo</button>
+                </div>
+                <div class="col-lg-6 d-flex justify-content-center">
+                    <p>Hello Emotions</p>
                 </div>
             </div>
-            
-            <!-- row 4 -->
-            <div class="row">
-                <div class="col-med-6">
-                    <!-- <input type="range" id="zoom-slider" min="0" , max="0">
-                    <output id="zoom-slider-value"></output> -->
+
+            <!-- Results Container -->
+            <div class="container">
+                <div class="card mt-5 mb-5">
+                    <h5 class="card-header">Results!</h5>
+                    <div class="card-body">
+                        <p class="card-text" id="userEmo">You said you were:</p>
+                        <p class="card-text" id="apiEmo">Your face showed you to be:</p>
+                        <p class="card-text" id="drinkChoice">We reccomend you have a: </p>
+                    </div>
                 </div>
             </div>
+
 
         </div>
         <!--img container end-->
