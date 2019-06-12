@@ -39,21 +39,27 @@
 </head>
 
 <body class="text-center d-flex flex-column h-100">
-    <div class="container">
-
-        <!-- Navbar -->
-        <header class="masthead mb-auto">
-            <div class="inner">
-                <nav class="navbar navbar-light bg-light">
+    <!-- Navbar -->
+    <header class="masthead mb-auto px-5">
+            <div class="row navbar navbar-light bg-light" aria-label="breadcrumb">
+                <div class="col d-flex justify-content-start">
                     <a class="navbar-brand" href="#">
                         <img src="./assets/images/emoji.png" width="30" height="30" class="d-inline-block align-top"
                             alt="">
                         <strong>A Drink For Your Mood</strong>
                     </a>
-                </nav>
+                </div>
+                <div class="col d-flex justify-content-end">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="wireframe2.html">Mood Check</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Pic Check</li>
+                    </ol>
+                </div>
             </div>
         </header>
-        <!-- Navbar End -->
+    <!-- Navbar End -->
+    <div class="container">
+
 
         <!-- image capture -->
 
@@ -105,8 +111,25 @@
     </div> <!-- main container end-->
 
     <!-- Footer -->
-    <footer class="footer mt-auto py-3 bg-light">
-        <p>@TEAM R.S.G.</p>
+    <footer class="footer mt-auto py-3 bg-light px-5">
+        <!-- 8 16 8 16 // 1078 40   -->
+        <div class="row">
+            <div class="col">
+                <ul class="nav justify-content-start">
+                    <li class="nav-item disabled">@TEAM R.S.G.</li>
+                </ul>
+            </div>
+            <div class="col-sm-6">
+                <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </footer>
     <script src="./assets/js/app.js"></script>
 </body>
