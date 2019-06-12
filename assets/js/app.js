@@ -104,7 +104,7 @@ $(document).ready(function() {
 // *** Evaluation & Drink Recommendation page ***
 
 $(document).ready(function() {
-    
+
     //Check if browser supports camera use
     // if statement for acceptance of camera use
     const supported = 'mediaDevices' in navigator;
@@ -175,360 +175,383 @@ $(document).ready(function() {
                     var queryURL = `https://api-us.faceplusplus.com/facepp/v3/detect?image_base64=${base64data}&api_key=XtvBZyeUXRy0uOEtl1mlG61af7JzBlIj&api_secret=tYNC1LAnUmHhUw_1IXhLLyKJXcZRHuvo`
 
                     $.ajax({
-                        // passing object through ajax
-                        url: 'https://api-us.faceplusplus.com/facepp/v3/detect',
-                        method: "POST",
-                        data: {
-                            api_key: 'XtvBZyeUXRy0uOEtl1mlG61af7JzBlIj',
-                            api_secret: 'tYNC1LAnUmHhUw_1IXhLLyKJXcZRHuvo',
-                            image_base64: base64data,
-                            return_attributes: 'gender,age,emotion'
-                        }
-                    })
-                    .then(function(response) {
-                        // console.log(`FACE++:`, response.faces[0].valueOf());
-                        // pulls emotion from the main face in the photo
-                        let obj = response.faces[0].attributes.emotion.valueOf();
-
-                        // console.log(`This is our emotion return ${obj}`);
-
-                        let max = 0
-                        let whichKey = false
-                        for (let key in obj) {
-                            // loops over the object
-                            if (max < obj[key]) {
-                                // sets max to object's value of the key
-                                max = obj[key];
-                                whichKey = key;
+                            // passing object through ajax
+                            url: 'https://api-us.faceplusplus.com/facepp/v3/detect',
+                            method: "POST",
+                            data: {
+                                api_key: 'XtvBZyeUXRy0uOEtl1mlG61af7JzBlIj',
+                                api_secret: 'tYNC1LAnUmHhUw_1IXhLLyKJXcZRHuvo',
+                                image_base64: base64data,
+                                return_attributes: 'gender,age,emotion'
                             }
-
-                        }
-                        // console.log(`This is the obj % emotion ${max}`);
-                        // console.log(`This is the obj largest % emotion ${whichKey}`);
-                        let drinks = "";
-                        // If first slider chosen and Face++ reads, then recommend:
-                        // Slider: Sadness	Face++: Sadness	    Cocktail Reco: Whiskey Sour
-                        if (slider === 'sad' && whichKey === 'sadness') {
-                            drinks = "whisky_sour";
-                            // Slider: Anger	Face++: Sadness	    Cocktail Reco: Mulled Wine
-                        } else if (slider === 'angry' && whichKey === 'sadness') {
-                            drinks = "mulled_wine";
-                            // Slider: Angst	Face++: Sadness	    Cocktail Reco: Tequila Slammer
-                        } else if (slider === 'anxious' && whichKey === 'sadness') {
-                            drinks = "tequila_slammer";
-                            // Slider: Fear	    Face++: Sadness	    Cocktail Reco: Grass Skirt
-                        } else if (slider === 'afraid' && whichKey === 'sadness') {
-                            drinks = "tequila_slammer";
-                            // Slider: Neutral	Face++: Sadness	    Cocktail Reco: Mimosa
-                        } else if (slider === 'neutral' && whichKey === 'sadness') {
-                            drinks = "mimosa";
-                            // Slider: Surprise	    Face++: Sadness	    Cocktail Reco: Mudslinger
-                        } else if (slider === 'surprised' && whichKey === 'sadness') {
-                            drinks = 'mudslinger';
-                            // Slider: Happiness	Face++: Sadness	    Cocktail Reco: Cosmopolitan
-                        } else if (slider === 'happy' && whichKey === 'sadness') {
-                            drinks = 'cosmopolitan';
-                            // Slider: Sad	    Face++: Anger	Cocktail Reco: Blue Lagoon
-                        } else if (slider === 'sad' && whichKey === 'sadness') {
-                            drinks = 'blue_lagoon';
-                            // Slider: Anger	Face++: Anger	Cocktail Reco: Tequila Surprise
-                        } else if (slider === 'angry' && whichKey === 'anger') {
-                            drinks = 'tequila_surprise';
-                            // Slider: Angst	Face++: Anger	Cocktail Reco: Creme de Menthe
-                        } else if (slider === 'anxious' && whichKey === 'anger') {
-                            drinks = 'creme_de_menthe';
-                            // Slider: Fear	    Face++: Anger	Cocktail Reco: Big Red
-                        } else if (slider === 'afraid' && whichKey === 'anger') {
-                            drinks = 'big_red';
-                            // Slider: Neutral	Face++: Anger	Cocktail Reco: The Jimmy Conway
-                        } else if (slider === 'neutral' && whichKey === 'anger') {
-                            drinks = 'the_jimmy_conway';
-                            // Slider: Surprise	    Face++: Anger	Cocktail Reco: Mother's Milk
-                        } else if (slider === 'surprised' && whichKey === 'anger') {
-                            drinks = `mother's_milk`;
-                            // Slider: Happiness	Face++: Anger	Cocktail Reco: Jackhammer
-                        } else if (slider === 'happy' && whichKey === 'anger') {
-                            drinks = 'jackhammer';
-                            // Slider: Sad	    Face++: Disgust	    Cocktail Reco: B-52
-                        } else if (slider === 'sad' && whichKey === 'disgust') {
-                            drinks = 'b-52';
-                            // Slider: Anger	Face++: Disgust	    Cocktail Reco: Thriller
-                        } else if (slider === 'anger' && whichKey === 'disgust') {
-                            drinks = 'thriller';
-                            // Slider: Angst	Face++: Disgust	    Cocktail Reco: Mojito
-                        } else if (slider === 'anxious' && whichKey === 'disgust') {
-                            drinks = 'mojito';
-                            // Slider: Fear	    Face++: Disgust	    Cocktail Reco: Bloody Mary
-                        } else if (slider === 'afraid' && whichKey === 'disgust') {
-                            drinks = 'bloody_mary';
-                            // Slider: Neutral	Face++: Disgust	    Cocktail Reco: Penicillin
-                        } else if (slider === 'neutral' && whichKey === 'disgust') {
-                            drinks = 'penicillin';
-                            // Slider: Surprise	    Face++: Disgust	    Cocktail Reco: Pink Lady
-                        } else if (slider === 'surprised' && whichKey === 'disgust') {
-                            drinks = 'pink_lady';
-                            // Slider: Happiness	Face++: Disgust	    Cocktail Reco: Belgian Blue
-                        } else if (slider === 'happy' && whichKey === 'disgust') {
-                            drinks = 'belgian_blue';
-                            // Slider: Sad	    Face++: Fear	Cocktail Reco: Coke and Drops
-                        } else if (slider === 'sad' && whichKey === 'fear') {
-                            drinks = 'coke_and_drops';
-                            // Slider: Anger	Face++: Fear	Cocktail Reco: Dirty Martini
-                        } else if (slider === 'angry' && whichKey === 'fear') {
-                            drinks = 'dry_martini';
-                            // Slider: Angst	Face++: Fear	Cocktail Reco: Berry Deadly
-                        } else if (slider === 'anxious' && whichKey === 'fear') {
-                            drinks = 'berry_deadly';
-                            // Slider: Fear	    Face++: Fear	Cocktail Reco: Martini
-                        } else if (slider === 'afraid' && whichKey === 'fear') {
-                            drinks = 'martini';
-                            // Slider: Neutral	Face++: Fear	Cocktail Reco: Gin And Tonic
-                        } else if (slider === 'neutral' && whichKey === 'fear') {
-                            drinks = 'gin_and_tonic';
-                            // Slider: Surprise	    Face++: Fear	Cocktail Reco: Jello Shots
-                        } else if (slider === 'surprised' && whichKey === 'fear') {
-                            drinks = 'jello_shots';
-                            // Slider: Happiness	Face++: Fear	Cocktail Reco: Paloma
-                        } else if (slider === 'happy' && whichKey === 'fear') {
-                            drinks = 'paloma';
-                            // Slider: Sad	    Face++: Neutral	    Cocktail Reco: Vesuvio
-                        } else if (slider === 'sad' && whichKey === 'neutral') {
-                            drinks = 'vesuvio';
-                            // Slider: Anger	Face++: Neutral	    Cocktail Reco: Zippy's Revenge
-                        } else if (slider === 'angry' && whichKey === 'neutral') {
-                            drinks = `zippy's_revenge`;
-                            // Slider: Angst	Face++: Neutral	    Cocktail Reco: Pina Colada
-                        } else if (slider === 'anxious' && whichKey === 'neutral') {
-                            drinks = 'pina_colada';
-                            // Slider: Fear	    Face++: Neutral	    Cocktail Reco: Zinger
-                        } else if (slider === 'fear' && whichKey === 'neutral') {
-                            drinks = `zinger`;
-                            // Slider: Neutral	Face++: Neutral	    Cocktail Reco: Old Fashioned
-                        } else if (slider === 'neutral' && whichKey === 'neutral') {
-                            drinks = `old_fashioned`;
-                            // Slider: Surprise	    Face++: Neutral	    Cocktail Reco: Bellini
-                        } else if (slider === 'surprised' && whichKey === 'neutral') {
-                            drinks = `bellini`;
-                            // Slider: Happiness	Face++: Neutral	    Cocktail Reco: Strawberry Daiquiri
-                        } else if (slider === 'happy' && whichKey === 'neutral') {
-                            drinks = `strawberry_daiquiri`;
-                            // Slider: Sad	    Face++: Surprise	Cocktail Reco: Brain Fart
-                        } else if (slider === 'sad' && whichKey === 'surprise') {
-                            drinks = `brain_fart`;
-                            // Slider: Anger	Face++: Surprise	Cocktail Reco: Gimlet
-                        } else if (slider === 'angry' && whichKey === 'surprise') {
-                            drinks = `gimlet`;
-                            // Slider: Angst	Face++: Surprise	Cocktail Reco: Paradise
-                        } else if (slider === 'anxious' && whichKey === 'surprise') {
-                            drinks = `paradise`;
-                            // Slider: Fear	    Face++: Surprise	Cocktail Reco: Zenmeister
-                        } else if (slider === 'afraid' && whichKey === 'surprise') {
-                            drinks = `zenmeister`;
-                            // Slider: Neutral	Face++: Surprise	Cocktail Reco: Boulevardier
-                        } else if (slider === 'neutral' && whichKey === 'surprise') {
-                            drinks = `boulevardier`;
-                            // Slider: Surprise	Face++: Surprise	Cocktail Reco: Pisco Sour
-                        } else if (slider === 'suprised' && whichKey === 'surprise') {
-                            drinks = `pisco_sour`;
-                            // Slider: Happiness	Face++: Surprise	Cocktail Reco: Ipamena
-                        } else if (slider === 'happiness' && whichKey === 'surprise') {
-                            drinks = `ipamena`;
-                            // Slider: Sad	    Face++: Happiness	Cocktail Reco: Negroni
-                        } else if (slider === 'sad' && whichKey === 'happiness') {
-                            drinks = `negroni`;
-                            // Slider: Anger	Face++: Happiness	Cocktail Reco: Manhattan
-                        } else if (slider === 'angry' && whichKey === 'happiness') {
-                            drinks = `manhattan`;
-                            // Slider: Angst	Face++: Happiness	Cocktail Reco: Vesper 
-                        } else if (slider === 'anxiou' && whichKey === 'happiness') {
-                            drinks = `vesper`;
-                            // Slider: Fear	    Face++: Happiness	Cocktail Reco: Flaming Lamborghini
-                        } else if (slider === 'afraid' && whichKey === 'happiness') {
-                            drinks = `flaming_lamborghini`;
-                            // Slider: Neutral	Face++: Happiness	Cocktail Reco: Yellow Bird
-                        } else if (slider === 'neutral' && whichKey === 'happiness') {
-                            drinks = `yellow_bird`;
-                            // Slider: Surprise	Face++: Happiness	Cocktail Reco: Moscow Mule
-                        } else if (slider === 'suprised' && whichKey === 'happiness') {
-                            drinks = `moscow_mule`;
-                            // Slider: Happiness	Face++: Happiness	Cocktail Reco: Margarita
-                        } else if (slider === 'happy' && whichKey === 'happiness') {
-                            drinks = `margarita`;
-                        }
-                        // console.log(`THIS IS THE DRINK CHOSEN ${drinks}`);
-                        // Store the username into localStorage using "localStorage.setItem"
-                        
-                        // console.log(max);
-                        // console.log(whichKey);
-                        
-                        // set global variable to facePlusPlusEmotion
-                        facePlusPlusEmotion = whichKey;
-                        // Store the facePlusPlus emotion into localStorage using "localStorage.setItem"
-                        localStorage.setItem("facePlusPlusEmotion", facePlusPlusEmotion);
-                        
-                        
-                        // what happens when we accept photo
-                        $('#acceptPhoto').on('click', function() {
-                            
-                            localStorage.setItem("drink", drinks);
-                            console.log(drinks);
-                            $('div.photo-results').removeClass('invisible');
-
-                            // add to the page
-                            $('#apiEmo').html(`Your face showed: ${facePlusPlusEmotion}`);
-
                         })
+                        .then(function(response) {
+                            // console.log(`FACE++:`, response.faces[0].valueOf());
+                            // pulls emotion from the main face in the photo
+                            let obj = response.faces[0].attributes.emotion.valueOf();
 
-                        // on click event after hitting the submit button
-                        $('#submitEmo').on('click', function() {
+                            // console.log(`This is our emotion return ${obj}`);
 
-                            // moves to the next page
-                            window.location = "wireframe3.5.html";
-                        });
-                    })
+                            let max = 0
+                            let whichKey = false
+                            for (let key in obj) {
+                                // loops over the object
+                                if (max < obj[key]) {
+                                    // sets max to object's value of the key
+                                    max = obj[key];
+                                    whichKey = key;
+                                }
+
+                            }
+                            // console.log(`This is the obj % emotion ${max}`);
+                            // console.log(`This is the obj largest % emotion ${whichKey}`);
+                            let drinks = "";
+                            // If first slider chosen and Face++ reads, then recommend:
+                            // Slider: Sadness	Face++: Sadness	    Cocktail Reco: Whiskey Sour
+                            if (slider === 'sad' && whichKey === 'sadness') {
+                                drinks = "whisky_sour";
+                                // Slider: Anger	Face++: Sadness	    Cocktail Reco: Mulled Wine
+                            } else if (slider === 'angry' && whichKey === 'sadness') {
+                                drinks = "mulled_wine";
+                                // Slider: Angst	Face++: Sadness	    Cocktail Reco: Tequila Slammer
+                            } else if (slider === 'anxious' && whichKey === 'sadness') {
+                                drinks = "tequila_slammer";
+                                // Slider: Fear	    Face++: Sadness	    Cocktail Reco: Grass Skirt
+                            } else if (slider === 'afraid' && whichKey === 'sadness') {
+                                drinks = "tequila_slammer";
+                                // Slider: Neutral	Face++: Sadness	    Cocktail Reco: Mimosa
+                            } else if (slider === 'neutral' && whichKey === 'sadness') {
+                                drinks = "mimosa";
+                                // Slider: Surprise	    Face++: Sadness	    Cocktail Reco: Mudslinger
+                            } else if (slider === 'surprised' && whichKey === 'sadness') {
+                                drinks = 'mudslinger';
+                                // Slider: Happiness	Face++: Sadness	    Cocktail Reco: Cosmopolitan
+                            } else if (slider === 'happy' && whichKey === 'sadness') {
+                                drinks = 'cosmopolitan';
+                                // Slider: Sad	    Face++: Anger	Cocktail Reco: Blue Lagoon
+                            } else if (slider === 'sad' && whichKey === 'sadness') {
+                                drinks = 'blue_lagoon';
+                                // Slider: Anger	Face++: Anger	Cocktail Reco: Tequila Surprise
+                            } else if (slider === 'angry' && whichKey === 'anger') {
+                                drinks = 'tequila_surprise';
+                                // Slider: Angst	Face++: Anger	Cocktail Reco: Creme de Menthe
+                            } else if (slider === 'anxious' && whichKey === 'anger') {
+                                drinks = 'creme_de_menthe';
+                                // Slider: Fear	    Face++: Anger	Cocktail Reco: Big Red
+                            } else if (slider === 'afraid' && whichKey === 'anger') {
+                                drinks = 'big_red';
+                                // Slider: Neutral	Face++: Anger	Cocktail Reco: The Jimmy Conway
+                            } else if (slider === 'neutral' && whichKey === 'anger') {
+                                drinks = 'the_jimmy_conway';
+                                // Slider: Surprise	    Face++: Anger	Cocktail Reco: Mother's Milk
+                            } else if (slider === 'surprised' && whichKey === 'anger') {
+                                drinks = `mother's_milk`;
+                                // Slider: Happiness	Face++: Anger	Cocktail Reco: Jackhammer
+                            } else if (slider === 'happy' && whichKey === 'anger') {
+                                drinks = 'jackhammer';
+                                // Slider: Sad	    Face++: Disgust	    Cocktail Reco: B-52
+                            } else if (slider === 'sad' && whichKey === 'disgust') {
+                                drinks = 'b-52';
+                                // Slider: Anger	Face++: Disgust	    Cocktail Reco: Thriller
+                            } else if (slider === 'anger' && whichKey === 'disgust') {
+                                drinks = 'thriller';
+                                // Slider: Angst	Face++: Disgust	    Cocktail Reco: Mojito
+                            } else if (slider === 'anxious' && whichKey === 'disgust') {
+                                drinks = 'mojito';
+                                // Slider: Fear	    Face++: Disgust	    Cocktail Reco: Bloody Mary
+                            } else if (slider === 'afraid' && whichKey === 'disgust') {
+                                drinks = 'bloody_mary';
+                                // Slider: Neutral	Face++: Disgust	    Cocktail Reco: Penicillin
+                            } else if (slider === 'neutral' && whichKey === 'disgust') {
+                                drinks = 'penicillin';
+                                // Slider: Surprise	    Face++: Disgust	    Cocktail Reco: Pink Lady
+                            } else if (slider === 'surprised' && whichKey === 'disgust') {
+                                drinks = 'pink_lady';
+                                // Slider: Happiness	Face++: Disgust	    Cocktail Reco: Belgian Blue
+                            } else if (slider === 'happy' && whichKey === 'disgust') {
+                                drinks = 'belgian_blue';
+                                // Slider: Sad	    Face++: Fear	Cocktail Reco: Coke and Drops
+                            } else if (slider === 'sad' && whichKey === 'fear') {
+                                drinks = 'coke_and_drops';
+                                // Slider: Anger	Face++: Fear	Cocktail Reco: Dirty Martini
+                            } else if (slider === 'angry' && whichKey === 'fear') {
+                                drinks = 'dry_martini';
+                                // Slider: Angst	Face++: Fear	Cocktail Reco: Berry Deadly
+                            } else if (slider === 'anxious' && whichKey === 'fear') {
+                                drinks = 'berry_deadly';
+                                // Slider: Fear	    Face++: Fear	Cocktail Reco: Martini
+                            } else if (slider === 'afraid' && whichKey === 'fear') {
+                                drinks = 'martini';
+                                // Slider: Neutral	Face++: Fear	Cocktail Reco: Gin And Tonic
+                            } else if (slider === 'neutral' && whichKey === 'fear') {
+                                drinks = 'gin_and_tonic';
+                                // Slider: Surprise	    Face++: Fear	Cocktail Reco: Jello Shots
+                            } else if (slider === 'surprised' && whichKey === 'fear') {
+                                drinks = 'jello_shots';
+                                // Slider: Happiness	Face++: Fear	Cocktail Reco: Paloma
+                            } else if (slider === 'happy' && whichKey === 'fear') {
+                                drinks = 'paloma';
+                                // Slider: Sad	    Face++: Neutral	    Cocktail Reco: Vesuvio
+                            } else if (slider === 'sad' && whichKey === 'neutral') {
+                                drinks = 'vesuvio';
+                                // Slider: Anger	Face++: Neutral	    Cocktail Reco: Zippy's Revenge
+                            } else if (slider === 'angry' && whichKey === 'neutral') {
+                                drinks = `zippy's_revenge`;
+                                // Slider: Angst	Face++: Neutral	    Cocktail Reco: Pina Colada
+                            } else if (slider === 'anxious' && whichKey === 'neutral') {
+                                drinks = 'pina_colada';
+                                // Slider: Fear	    Face++: Neutral	    Cocktail Reco: Zinger
+                            } else if (slider === 'fear' && whichKey === 'neutral') {
+                                drinks = `zinger`;
+                                // Slider: Neutral	Face++: Neutral	    Cocktail Reco: Old Fashioned
+                            } else if (slider === 'neutral' && whichKey === 'neutral') {
+                                drinks = `old_fashioned`;
+                                // Slider: Surprise	    Face++: Neutral	    Cocktail Reco: Bellini
+                            } else if (slider === 'surprised' && whichKey === 'neutral') {
+                                drinks = `bellini`;
+                                // Slider: Happiness	Face++: Neutral	    Cocktail Reco: Strawberry Daiquiri
+                            } else if (slider === 'happy' && whichKey === 'neutral') {
+                                drinks = `strawberry_daiquiri`;
+                                // Slider: Sad	    Face++: Surprise	Cocktail Reco: Brain Fart
+                            } else if (slider === 'sad' && whichKey === 'surprise') {
+                                drinks = `brain_fart`;
+                                // Slider: Anger	Face++: Surprise	Cocktail Reco: Gimlet
+                            } else if (slider === 'angry' && whichKey === 'surprise') {
+                                drinks = `gimlet`;
+                                // Slider: Angst	Face++: Surprise	Cocktail Reco: Paradise
+                            } else if (slider === 'anxious' && whichKey === 'surprise') {
+                                drinks = `paradise`;
+                                // Slider: Fear	    Face++: Surprise	Cocktail Reco: Zenmeister
+                            } else if (slider === 'afraid' && whichKey === 'surprise') {
+                                drinks = `zenmeister`;
+                                // Slider: Neutral	Face++: Surprise	Cocktail Reco: Boulevardier
+                            } else if (slider === 'neutral' && whichKey === 'surprise') {
+                                drinks = `boulevardier`;
+                                // Slider: Surprise	Face++: Surprise	Cocktail Reco: Pisco Sour
+                            } else if (slider === 'suprised' && whichKey === 'surprise') {
+                                drinks = `pisco_sour`;
+                                // Slider: Happiness	Face++: Surprise	Cocktail Reco: Ipamena
+                            } else if (slider === 'happiness' && whichKey === 'surprise') {
+                                drinks = `ipamena`;
+                                // Slider: Sad	    Face++: Happiness	Cocktail Reco: Negroni
+                            } else if (slider === 'sad' && whichKey === 'happiness') {
+                                drinks = `negroni`;
+                                // Slider: Anger	Face++: Happiness	Cocktail Reco: Manhattan
+                            } else if (slider === 'angry' && whichKey === 'happiness') {
+                                drinks = `manhattan`;
+                                // Slider: Angst	Face++: Happiness	Cocktail Reco: Vesper 
+                            } else if (slider === 'anxiou' && whichKey === 'happiness') {
+                                drinks = `vesper`;
+                                // Slider: Fear	    Face++: Happiness	Cocktail Reco: Flaming Lamborghini
+                            } else if (slider === 'afraid' && whichKey === 'happiness') {
+                                drinks = `flaming_lamborghini`;
+                                // Slider: Neutral	Face++: Happiness	Cocktail Reco: Yellow Bird
+                            } else if (slider === 'neutral' && whichKey === 'happiness') {
+                                drinks = `yellow_bird`;
+                                // Slider: Surprise	Face++: Happiness	Cocktail Reco: Moscow Mule
+                            } else if (slider === 'suprised' && whichKey === 'happiness') {
+                                drinks = `moscow_mule`;
+                                // Slider: Happiness	Face++: Happiness	Cocktail Reco: Margarita
+                            } else if (slider === 'happy' && whichKey === 'happiness') {
+                                drinks = `margarita`;
+                            }
+                            // console.log(`THIS IS THE DRINK CHOSEN ${drinks}`);
+                            // Store the username into localStorage using "localStorage.setItem"
+
+                            // console.log(max);
+                            // console.log(whichKey);
+
+                            // set global variable to facePlusPlusEmotion
+                            facePlusPlusEmotion = whichKey;
+                            // Store the facePlusPlus emotion into localStorage using "localStorage.setItem"
+                            localStorage.setItem("facePlusPlusEmotion", facePlusPlusEmotion);
+
+
+                            // what happens when we accept photo
+                            $('#acceptPhoto').on('click', function() {
+
+                                localStorage.setItem("drink", drinks);
+                                console.log(drinks);
+                                $('div.photo-results').removeClass('invisible');
+
+                                // add to the page
+                                $('#apiEmo').html(`Your face showed: ${facePlusPlusEmotion}`);
+
+                            })
+
+                            // on click event after hitting the submit button
+                            $('#submitEmo').on('click', function() {
+
+                                // moves to the next page
+                                window.location = "wireframe3.5.html";
+                            });
+                        })
                 }
             })
             .catch(e => {
                 console.error("takePhoto() failed: ", e);
             });
-    
+
     })
 })
-if((localStorage.getItem("sliderEmotion") !== null) && (localStorage.getItem("facePlusPlusEmotion") !== null) && (localStorage.getItem("drink") !== null)) {
+if ((localStorage.getItem("sliderEmotion") !== null) && (localStorage.getItem("facePlusPlusEmotion") !== null) && (localStorage.getItem("drink") !== null)) {
     $(document).ready(function() {
-        // pull drink name from localstorage to run through our API
-        slider = localStorage.getItem("sliderEmotion");
-        facePlusPlusEmotion = localStorage.getItem("facePlusPlusEmotion");
-        let drinks = localStorage.getItem("drink");
+                // pull drink name from localstorage to run through our API
+                slider = localStorage.getItem("sliderEmotion");
+                facePlusPlusEmotion = localStorage.getItem("facePlusPlusEmotion");
+                let drinks = localStorage.getItem("drink");
 
-        $('#userEmo').text(slider);
-        $('#apiEmo').text(facePlusPlusEmotion);
-        
-        // variable for queryURL
-        var queryURL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drinks}`;
-        
-        // AJAX call for api
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        }).then(function(response) {
-            // console.log(`FULL DRINK DATA: ${JSON.stringify(response.drinks[0])}`);
-            
-            
-            // name of the drink
-            let drinkStr = JSON.stringify(response.drinks[0].strDrink);
-            let drinkName = drinkStr.replace(/\"/g, "");
-            console.log(JSON.stringify(`This is the name of the drink: ${drinkName}`));
-            $('#drinkChoice').html(drinkName);
-            $('#cocktailName').text(drinkName);
-            
-            // link to picture of drink in the html
-            let imgStr = JSON.stringify(response.drinks[0].strDrinkThumb);
-            let imgLink = imgStr.replace(/\"/g, "");
+                $('#userEmo').text(slider);
+                $('#apiEmo').text(facePlusPlusEmotion);
 
-            console.log(JSON.stringify(`This is the image link: ${response.drinks[0].strDrinkThumb}`));
-            $('#cocktailImg').attr('src', imgLink);
-            
-            // ingredients
-            if(response.drinks[0].hasOwnProperty(strIngredient2)) {
-                let ingredient2 = ", " + JSON.stringify(response.drinks[0].strIngredient2);
-            }else{
-                let ingredient2 = ""; 
-            }
-            
-            if(response.drinks[0].hasOwnProperty(strIngredient3)) {
-                let ingredient3 = ", " + JSON.stringify(response.drinks[0].strIngredient3);
-            }else{
-                let ingredient3 = "";
-            }
+                // variable for queryURL
+                var queryURL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drinks}`;
 
-            if(response.drinks[0].hasOwnProperty(strIngredient4)) {
-                let ingredient4 = ", " + JSON.stringify(response.drinks[0].strIngredient4);
-            }else {
-                let ingredient4 = "";
-            }
-            
-            if(response.drinks[0].hasOwnProperty(strIngredient5)) {
-                let ingredient5 = ", " + JSON.stringify(response.drinks[0].strIngredient5);
-            }else {
-                let ingredient5 = ""; 
-            }
-            
-            if(response.drinks[0].hasOwnProperty(strIngredient6)) {
-                let ingredient6 = ", " + JSON.stringify(response.drinks[0].strIngredient6);
-            }else {
-                let ingredient6 = "";
-            }
-            
-            if(response.drinks[0].hasOwnProperty(strIngredient7)) {
-                let ingredient7 = ", " + JSON.stringify(response.drinks[0].strIngredient7);
-            }else {
-                let ingredient7 = "";
-            }
-            
-            if(response.drinks[0].hasOwnProperty(strIngredient8)) {
-                let ingredient8 = ", " + JSON.stringify(response.drinks[0].strIngredient8);
-            }else {
-                let ingredient8 = "";
-            }
-            
-            if(response.drinks[0].hasOwnProperty(strIngredient9)) {
-                let ingredient9 = ", " + JSON.stringify(response.drinks[0].strIngredient9);
-            }else {
-                let ingredient9 = "";
-            }
-            
-            if(response.drinks[0].hasOwnProperty(strIngredient10)) {
-                let ingredient10 = ", " + JSON.stringify(response.drinks[0].strIngredient10);
-            }else {
-                let ingredient10 = "";  
-            }
-
-            let ingredientsStr = JSON.stringify(response.drinks[0].strIngredient1) + ingredient2 + ingredient3 + ingredient4 + ingredient5 + ingredient6 + ingredient7 + ingredient8 + ingredient9 + ingredient10; 
-            
-            let ingredients = ingredientsStr.replace(/\"/g, "");
-            $('#ingredients').text(ingredients);
-            console.log("ingredients: "+ ingredients);
-
-            // // instructions
-            let instructionsStr = JSON.stringify(response.drinks[0].strInstructions);
-            let instructions = instructionsStr.replace(/\"/g, "");
-            $('#recipe').text(instructions);
+                // AJAX call for api
+                $.ajax({
+                        url: queryURL,
+                        method: "GET"
+                    }).then(function(response) {
+                            // console.log(`FULL DRINK DATA: ${JSON.stringify(response.drinks[0])}`);
 
 
-        //     // *** ADD to wireframe 3.5 ***
-        //     // get slider from local storage
-        //     // console.log(`THIS IS THE SLIDER INPUT: ${slider}`);
-        //     $('#userEmo').text(`You said you were: ${slider}`);
-        //     // add face++ emotion to the page
+                            // name of the drink
+                            let drinkStr = JSON.stringify(response.drinks[0].strDrink);
+                            let drinkName = drinkStr.replace(/\"/g, "");
+                            console.log(JSON.stringify(`This is the name of the drink: ${drinkName}`));
+                            $('#drinkChoice').html(drinkName);
+                            $('#cocktailName').text(drinkName);
+
+                            // link to picture of drink in the html
+                            let imgStr = JSON.stringify(response.drinks[0].strDrinkThumb);
+                            let imgLink = imgStr.replace(/\"/g, "");
+
+                            console.log(JSON.stringify(`This is the image link: ${response.drinks[0].strDrinkThumb}`));
+                            $('#cocktailImg').attr('src', imgLink);
 
 
-        //     // get data from the local storage
-        //     let facePlusPlusEmotion = localStorage.getItem("facePlusPlusEmotion");
-        //     // display
-        //     $('#apiEmo').html(`Your face showed: ${facePlusPlusEmotion}`);
-
-        //     // get data from local storage
-        //     let drink = localStorage.getItem("drink");
-        //     // add drink choice to wireframe 3
-        //     $('#drinkChoice').html(`We recommend you have a: ${drink}`);
-
-        //     // get data from local storage
-        //     // let imgLink = localStorage.getItem("imageLink");
-        //     // put that link to img in our page
-        //     // $('#cocktailImg').attr('src', imgLink);
+                            // ingredients
+                            const ingredientsArr = [];
+                            for (let i = 1; i <= 15; i++) {
+                                // response.drinks[0][`strIngredient${i}`]
+                                // square bracket for objects
+                                if (response.drinks[0][`strIngredient${i}`] !== "") {
+                                    ingredientsArr[ingredientsArr.length] = `${(response.drinks[0][`strMeasure${i}`].length > 3) ? response.drinks[0][`strMeasure${i}`] : ""} ${response.drinks[0][`strIngredient${i}`]}`
 
 
-        //     // put ingredients in our page
-        //     $('#ingredients').text(ingredients);
-        //     // put instructions in our wireframe 3.5 page
-        //     $('#recipe').text(instructions);
-        //     // user slider input
-        //     // $('#userEmo').text(`${slider}`);
-        })
-        .catch(e => {
-            console.log(e);
-        })
+                        // ingredientsArr.push({
+                                // ingredient: response.drinks[0][`strIngredient${i}`],
+                                // measure: (response.drinks[0][`strMeasure${i}`].length > 3) ? response.drinks[0][`strMeasure${i}`] : ""
+                                    // if true it displays it, if false on other side of column will ""
+                            // }
+
+                        // )
+                    }
+
+                }
+                console.log(ingredientsArr);
+
+                $('#ingredients').text(ingredientsArr.join(", "));
+
+                // if (response.drinks[0].hasOwnProperty(strIngredient2)) {
+                //     let ingredient2 = ", " + JSON.stringify(response.drinks[0].strIngredient2);
+                // } else {
+                //     let ingredient2 = "";
+                // }
+
+                // if (response.drinks[0].hasOwnProperty(strIngredient3)) {
+                //     let ingredient3 = ", " + JSON.stringify(response.drinks[0].strIngredient3);
+                // } else {
+                //     let ingredient3 = "";
+                // }
+
+                // if (response.drinks[0].hasOwnProperty(strIngredient4)) {
+                //     let ingredient4 = ", " + JSON.stringify(response.drinks[0].strIngredient4);
+                // } else {
+                //     let ingredient4 = "";
+                // }
+
+                // if (response.drinks[0].hasOwnProperty(strIngredient5)) {
+                //     let ingredient5 = ", " + JSON.stringify(response.drinks[0].strIngredient5);
+                // } else {
+                //     let ingredient5 = "";
+                // }
+
+                // if (response.drinks[0].hasOwnProperty(strIngredient6)) {
+                //     let ingredient6 = ", " + JSON.stringify(response.drinks[0].strIngredient6);
+                // } else {
+                //     let ingredient6 = "";
+                // }
+
+                // if (response.drinks[0].hasOwnProperty(strIngredient7)) {
+                //     let ingredient7 = ", " + JSON.stringify(response.drinks[0].strIngredient7);
+                // } else {
+                //     let ingredient7 = "";
+                // }
+
+                // if (response.drinks[0].hasOwnProperty(strIngredient8)) {
+                //     let ingredient8 = ", " + JSON.stringify(response.drinks[0].strIngredient8);
+                // } else {
+                //     let ingredient8 = "";
+                // }
+
+                // if (response.drinks[0].hasOwnProperty(strIngredient9)) {
+                //     let ingredient9 = ", " + JSON.stringify(response.drinks[0].strIngredient9);
+                // } else {
+                //     let ingredient9 = "";
+                // }
+
+                // if (response.drinks[0].hasOwnProperty(strIngredient10)) {
+                //     let ingredient10 = ", " + JSON.stringify(response.drinks[0].strIngredient10);
+                // } else {
+                //     let ingredient10 = "";
+                // }
+
+                let ingredientsStr = JSON.stringify(response.drinks[0].strIngredient1) + ingredient2 + ingredient3 + ingredient4 + ingredient5 + ingredient6 + ingredient7 + ingredient8 + ingredient9 + ingredient10;
+
+                let ingredients = ingredientsStr.replace(/\"/g, "");
+                $('#ingredients').text(ingredients);
+                console.log("ingredients: " + ingredients);
+
+                // // instructions
+                let instructionsStr = JSON.stringify(response.drinks[0].strInstructions);
+                let instructions = instructionsStr.replace(/\"/g, "");
+                $('#recipe').text(instructions);
+
+
+                //     // *** ADD to wireframe 3.5 ***
+                //     // get slider from local storage
+                //     // console.log(`THIS IS THE SLIDER INPUT: ${slider}`);
+                //     $('#userEmo').text(`You said you were: ${slider}`);
+                //     // add face++ emotion to the page
+
+
+                //     // get data from the local storage
+                //     let facePlusPlusEmotion = localStorage.getItem("facePlusPlusEmotion");
+                //     // display
+                //     $('#apiEmo').html(`Your face showed: ${facePlusPlusEmotion}`);
+
+                //     // get data from local storage
+                //     let drink = localStorage.getItem("drink");
+                //     // add drink choice to wireframe 3
+                //     $('#drinkChoice').html(`We recommend you have a: ${drink}`);
+
+                //     // get data from local storage
+                //     // let imgLink = localStorage.getItem("imageLink");
+                //     // put that link to img in our page
+                //     // $('#cocktailImg').attr('src', imgLink);
+
+
+                //     // put ingredients in our page
+                //     $('#ingredients').text(ingredients);
+                //     // put instructions in our wireframe 3.5 page
+                //     $('#recipe').text(instructions);
+                //     // user slider input
+                //     // $('#userEmo').text(`${slider}`);
+            })
+            .catch(e => {
+                console.log(e);
+            })
     })
 }
 // *** About Us & Contact Page ***
