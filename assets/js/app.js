@@ -27,6 +27,7 @@ $(document).ready(function() {
         if (ofAge >= 662256000000) {
             // if 21+ proceed to next page
             $('#ageRequirement').removeClass('invisible').html(`<h1>Let's Drink!</h1>`);
+            // changes to next page after displaying message
             setTimeout(function() {
                 window.location = "wireframe2.html";
             }, 4500);
@@ -136,41 +137,41 @@ $(document).ready(function() {
         var videoTrack = mediastream.getVideoTracks()[0];
         imageCapturer = new ImageCapture(videoTrack);
 
-        // Timeout needed in Chrome, see https://crbug.com/711524
-        setTimeout(() => {
-            const capabilities = videoTrack.getCapabilities()
-                // Check whether zoom is supported or not.
-            if (!capabilities.zoom) {
-                return;
-            }
+        // // Timeout needed in Chrome, see https://crbug.com/711524
+        // setTimeout(() => {
+        //     const capabilities = videoTrack.getCapabilities()
+        //         // Check whether zoom is supported or not.
+        //     if (!capabilities.zoom) {
+        //         return;
+        //     }
 
-            zoomSlider.min = capabilities.zoom.min;
-            zoomSlider.max = capabilities.zoom.max;
-            zoomSlider.step = capabilities.zoom.step;
+        //     zoomSlider.min = capabilities.zoom.min;
+        //     zoomSlider.max = capabilities.zoom.max;
+        //     zoomSlider.step = capabilities.zoom.step;
 
-            zoomSlider.value = zoomSliderValue.value = videoTrack.getSettings().zoom;
-            zoomSliderValue.value = zoomSlider.value;
+        //     zoomSlider.value = zoomSliderValue.value = videoTrack.getSettings().zoom;
+        //     zoomSliderValue.value = zoomSlider.value;
 
-            zoomSlider.oninput = function() {
-                zoomSliderValue.value = zoomSlider.value;
-                videoTrack.applyConstraints({ advanced: [{ zoom: zoomSlider.value }] });
-            }
-        }, 500);
+        //     zoomSlider.oninput = function() {
+        //         zoomSliderValue.value = zoomSlider.value;
+        //         videoTrack.applyConstraints({ advanced: [{ zoom: zoomSlider.value }] });
+        //     }
+        // }, 500);
 
     }
 
     $('#takePhoto').on('click', function takePhoto() {
-        console.log("PHOTO TAKEN");
+        // console.log("PHOTO TAKEN");
         imageCapturer.takePhoto()
             .then((blob) => {
-                console.log("Photo taken: " + blob.type + ", " + blob.size + "B")
+                // console.log("Photo taken: " + blob.type + ", " + blob.size + "B")
                 imageTag.src = URL.createObjectURL(blob);
 
                 var reader = new FileReader();
                 reader.readAsDataURL(blob);
                 reader.onloadend = function() {
                     let base64data = reader.result;
-                    console.log(base64data);
+                    // console.log(base64data);
 
 
                     var queryURL = `https://api-us.faceplusplus.com/facepp/v3/detect?image_base64=${base64data}&api_key=XtvBZyeUXRy0uOEtl1mlG61af7JzBlIj&api_secret=tYNC1LAnUmHhUw_1IXhLLyKJXcZRHuvo`
@@ -187,11 +188,11 @@ $(document).ready(function() {
                             }
                         })
                         .then(function(response) {
-                            console.log(`FACE++:`, response.faces[0].valueOf());
+                            // console.log(`FACE++:`, response.faces[0].valueOf());
                             // pulls emotion from the main face in the photo
                             let obj = response.faces[0].attributes.emotion.valueOf();
 
-                            console.log(`This is our emotion return ${obj}`);
+                            // console.log(`This is our emotion return ${obj}`);
 
                             let max = 0
                             let whichKey = false
@@ -204,8 +205,8 @@ $(document).ready(function() {
                                 }
 
                             }
-                            console.log(`This is the obj % emotion ${max}`);
-                            console.log(`This is the obj largest % emotion ${whichKey}`);
+                            // console.log(`This is the obj % emotion ${max}`);
+                            // console.log(`This is the obj largest % emotion ${whichKey}`);
                             let drinks = "";
                             // If first slider chosen and Face++ reads, then recommend:
                             // Slider: Sadness	Face++: Sadness	    Cocktail Reco: Whiskey Sour
@@ -356,16 +357,43 @@ $(document).ready(function() {
                             } else if (whichKey === 'happiness' && slider === 'happy') {
                                 drinks = `margarita`;
                             }
-                            console.log(max);
-                            console.log(whichKey);
+                            // console.log(`THIS IS THE DRINK CHOSEN ${drinks}`);
+                            // Store the username into localStorage using "localStorage.setItem"
+                            localStorage.setItem("drink", drinks);
 
-                            var queryURL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drinks}`;
-
+                            // console.log(max);
+                            // console.log(whichKey);
 
                             // set global variable to facePlusPlusEmotion
                             facePlusPlusEmotion = whichKey;
+                            // Store the facePlusPlus emotion into localStorage using "localStorage.setItem"
+                            localStorage.setItem("facePlusPlusEmotion", facePlusPlusEmotion);
 
 
+                            // what happens when we accept photo
+                            $('#acceptPhoto').on('click', function() {
+
+                                $('div.photo-results').removeClass('invisible');
+
+                                // add to the page
+                                $('#apiEmo').html(`Your face showed: ${facePlusPlusEmotion}`);
+
+                            })
+
+                            // on click event after hitting the submit button
+                            $('#submitEmo').on('click', function() {
+
+                                // moves to the next page
+                                window.location = "wireframe3.5.html";
+                            });
+
+
+                            // pull drink name from localstorage to run through our API
+                            drinks = localStorage.getItem("drink");
+                            // variable for queryURL
+                            var queryURL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drinks}`;
+
+                            // AJAX call for api
                             $.ajax({
                                 url: queryURL,
                                 method: "GET"
@@ -375,50 +403,60 @@ $(document).ready(function() {
 
                                 // name of the drink
                                 let drinkName = JSON.stringify(response.drinks[0].strDrink);
-                                // console.log(JSON.stringify(`This is the name of the drink: ${drinkName}`));
+                                console.log(JSON.stringify(`This is the name of the drink: ${drinkName}`));
+                                // store in local
+                                localStorage.setItem("drink", drinkName);
 
 
                                 // link to picture of drink in the html
                                 let imgLink = JSON.stringify(response.drinks[0].strDrinkThumb);
-                                // console.log(JSON.stringify(`This is the image link: ${response.drinks[0].strDrinkThumb}`));
-
+                                console.log(JSON.stringify(`This is the image link: ${response.drinks[0].strDrinkThumb}`));
+                                // store in local
+                                localStorage.setItem("imageLink", imgLink);
 
                                 // ingredients
                                 let ingredients = JSON.stringify(response.drinks[0].strIngredient1 + ", " + response.drinks[0].strIngredient2 + ", " + response.drinks[0].strIngredient3 + ", " + response.drinks[0].strIngredient4 + ", " + response.drinks[0].strIngredient5 + ", " + response.drinks[0].strIngredient6 + ", " + response.drinks[0].strIngredient7 + ", " + response.drinks[0].strIngredient8 + ", " + response.drinks[0].strIngredient9 + ", " + response.drinks[0].strIngredient10);
-
+                                // store in local
+                                localStorage.setItem("ingredients", ingredients);
 
                                 // instructions
                                 let instructions = JSON.stringify(response.drinks[0].strInstructions);
+                                // instructions
 
-                                $('#acceptPhoto').on('click', function() {
-
-                                    $('#photo-results').removeClass('invisible');
-
-                                    // add to the page
-                                    $('#apiEmo').text(`Your face showed: ${facePlusPlusEmotion}`);
-                                })
-
-                                // *** AFTER CLICKING PROCESS PHOTO ***
-                                // user slider input
-                                // console.log(`THIS IS THE SLIDER INPUT: ${slider}`);
-                                // $('#userEmo').text(`${slider}`);
-                                // add drink choice to wireframe 3
-                                // $('#drinkChoice').html(`${drinkName}`);
 
                                 // *** ADD to wireframe 3.5 ***
-                                // put ingredients in our page
-                                $('#Ingredients').text(ingredients);
-                                // put instructions in our wireframe 3.5 page
-                                $('#recipe').text(instructions);
+                                // get slider from local storage
+                                let slider = localStorage.getItem("sliderEmotion");
+                                // console.log(`THIS IS THE SLIDER INPUT: ${slider}`);
+                                $('#userEmo').text(`You said you were: ${slider}`);
+                                // add face++ emotion to the page
+
+
+                                // get data from the local storage
+                                let facePlusPlusEmotion = localStorage.getItem("facePlusPlusEmotion");
+                                // display
+                                $('#apiEmo').html(`Your face showed: ${facePlusPlusEmotion}`);
+
+                                // get data from local storage
+                                let drink = localStorage.getItem("drink");
+                                // add drink choice to wireframe 3
+                                $('#drinkChoice').html(`We recommend you have a: ${drink}`);
+
+                                // get data from local storage
+                                let imgLink = localStorage.getItem("imageLink");
                                 // put that link to img in our page
                                 $('#cocktailImg').attr('src', imgLink);
+
+
+                                // put ingredients in our page
+                                $('#ingredients').text(ingredients);
+                                // put instructions in our wireframe 3.5 page
+                                $('#recipe').text(instructions);
                                 // user slider input
-                                $('#userEmo').text(`${slider}`);
-                                // add to the page
-                                $('#apiEmo').html(`${facePlusPlusEmotion}`);
-                                // add drink choice to wireframe 3
-                                $('#drinkChoice').html(`${drinkName}`);
-                            });
+                                // $('#userEmo').text(`${slider}`);
+                            })
+
+
                         })
                         .catch(e => {
                             console.log(e);
@@ -431,6 +469,7 @@ $(document).ready(function() {
                 console.error("takePhoto() failed: ", e);
             });
     })
+
 });
 
 // *** About Us & Contact Page ***
