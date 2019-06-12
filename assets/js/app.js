@@ -105,7 +105,7 @@ $(document).ready(function() {
 $(document).ready(function() {
     slider = localStorage.getItem("sliderEmotion");
     // object for 50 different drink options
-    console.log("SLIDER" + slider);
+    // console.log("SLIDER: " + slider);
     //Check if browser supports camera use
     // if statement for acceptance of camera use
     const supported = 'mediaDevices' in navigator;
@@ -126,10 +126,12 @@ $(document).ready(function() {
     })
 
     function gotMedia(mediastream) {
+        // to make sure we are getting video from the user
 
         videoTag.srcObject = mediastream;
 
         $('#start').disabled = true;
+        // disables start button
 
         var videoTrack = mediastream.getVideoTracks()[0];
         imageCapturer = new ImageCapture(videoTrack);
@@ -388,16 +390,20 @@ $(document).ready(function() {
                                 // instructions
                                 let instructions = JSON.stringify(response.drinks[0].strInstructions);
 
+                                $('#acceptPhoto').on('click', function() {
 
+                                    $('#photo-results').removeClass('invisible');
 
-                                // *** ADD to wireframe 3 ***
+                                    // add to the page
+                                    $('#apiEmo').text(`Your face showed: ${facePlusPlusEmotion}`);
+                                })
+
+                                // *** AFTER CLICKING PROCESS PHOTO ***
                                 // user slider input
-                                console.log(`THIS IS THE SLIDER INPUT: ${slider}`);
-                                $('#userEmo').text(`${slider}`);
-                                // add to the page
-                                $('#apiEmo').html(`${facePlusPlusEmotion}`);
+                                // console.log(`THIS IS THE SLIDER INPUT: ${slider}`);
+                                // $('#userEmo').text(`${slider}`);
                                 // add drink choice to wireframe 3
-                                $('#drinkChoice').html(`${drinkName}`);
+                                // $('#drinkChoice').html(`${drinkName}`);
 
                                 // *** ADD to wireframe 3.5 ***
                                 // put ingredients in our page
