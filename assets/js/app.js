@@ -1,5 +1,6 @@
 // **** A Drink For Your Mood ****
 var slider = "";
+var facePlusPlusEmotion = "";
 
 // *** Birthday Page Confirmation ***
 $(document).ready(function() {
@@ -146,7 +147,7 @@ $(document).ready(function() {
     }
 
     $('#takePhoto').on('click', function takePhoto() {
-        // console.log("clicked");
+        console.log("PHOTO TAKEN");
         imageCapturer.takePhoto()
             .then((blob) => {
                 console.log("Photo taken: " + blob.type + ", " + blob.size + "B")
@@ -173,11 +174,11 @@ $(document).ready(function() {
                             }
                         })
                         .then(function(response) {
-                            console.log(`FACE++:`, response);
+                            console.log(`FACE++:`, response.faces[0].valueOf());
                             // pulls emotion from the main face in the photo
                             let obj = response.faces[0].attributes.emotion.valueOf();
 
-                            // console.log(obj);
+                            console.log(`This is our emotion return ${obj}`);
 
                             let max = 0
                             let whichKey = false
@@ -190,6 +191,8 @@ $(document).ready(function() {
                                 }
 
                             }
+                            console.log(`This is the obj % emotion ${max}`);
+                            console.log(`This is the obj largest % emotion ${whichKey}`);
                             let drinks = "";
                             // If first slider chosen and Face++ reads, then recommend:
                             // Slider: Sadness	Face++: Sadness	    Cocktail Reco: Whiskey Sour
@@ -345,21 +348,30 @@ $(document).ready(function() {
 
                             var queryURL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drinks}`;
 
+
+                            // set global variable to facePlusPlusEmotion
+                            facePlusPlusEmotion = whichKey;
+
+
                             $.ajax({
                                 url: queryURL,
                                 method: "GET"
                             }).then(function(response) {
-                                console.log(`Drinks Data: ${response.drinks[0]}`);
+                                console.log(`FULL DRINK DATA: ${JSON.stringify(response.drinks[0])}`);
                             });
+
+                            // name of the drink
+                            let drinkName = JSON.stringify(response.drinks[0].strDrink);
+                            console.log(JSON.stringify(`This is the name of the drink ${response.drinks[0].strDrink}`));
 
 
                             // link to picture of drink in the html
-                            let imgLink = response.drinks[0].strDrinkThumb;
+                            let imgLink = JSON.stringify(response.drinks[0].strDrinkThumb);
                             // put that link in our page
                             $('cocktailImg').attr('src', imgLink);
 
                             // ingredients
-                            let ingredients = (response.drinks[0].strIngredient1 + ", " + response.drinks[0].strIngredient2 + ", " + response.drinks[0].strIngredient3 + ", " + response.drinks[0].strIngredient4 + ", " + response.drinks[0].strIngredient5 + ", " + response.drinks[0].strIngredient6 + ", " + response.drinks[0].strIngredient7 + ", " + response.drinks[0].strIngredient8 + ", " + response.drinks[0].strIngredient9 + ", " + response.drinks[0].strIngredient10);
+                            let ingredients = JSON.stringify(response.drinks[0].strIngredient1 + ", " + response.drinks[0].strIngredient2 + ", " + response.drinks[0].strIngredient3 + ", " + response.drinks[0].strIngredient4 + ", " + response.drinks[0].strIngredient5 + ", " + response.drinks[0].strIngredient6 + ", " + response.drinks[0].strIngredient7 + ", " + response.drinks[0].strIngredient8 + ", " + response.drinks[0].strIngredient9 + ", " + response.drinks[0].strIngredient10);
                             // put ingredients in our page
                             $('#Ingredients').text(ingredients);
 
@@ -368,6 +380,14 @@ $(document).ready(function() {
                             // put instructions in our page
                             $('#Instructions').text(instructions);
 
+
+                            // *** append to wireframe 3 ***
+                            // what user inputted
+                            $('#userEmo').text(`${slider}`);
+                            // append to the page
+                            $('#apiEmo').html(`${facePlusPlusEmotion}`);
+                            // append drink choice to wireframe 3
+                            $('#drinkChoice').html(`${drinkName}`);
                         })
                         .catch(e => {
                             console.log(e);
