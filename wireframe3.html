@@ -39,7 +39,6 @@
 </head>
 
 <body class="text-center d-flex flex-column h-100">
-    <h1>apple</h1>
     <!-- Navbar -->
     <header class="masthead mb-auto px-5">
             <div class="row navbar navbar-light bg-light" aria-label="breadcrumb">
@@ -68,7 +67,7 @@
             <!--row 1-->
             <div class="row mb-4">
                 <div class="col-md">
-                    <button id="start">start camera!</button>
+                    <button id="start" type="button" class="btn btn-danger">Access Camera!</button>
                 </div>
             </div>
 
@@ -86,10 +85,17 @@
             <!--row 3-->
             <div class="row mt-2">
                 <div class="col-lg-6 d-flex justify-content-center">
-                    <button id="takePhoto">Take Photo</button>
+                    <button id="takePhoto" class="btn btn-primary mb-3">Take Photo</button>
                 </div>
                 <div class="col-lg-6 d-flex justify-content-center">
-                    <p>Hello Emotions</p>
+                    <button id="acceptPhoto" class="btn btn-primary mb-3">Process Photo</button>
+                </div>
+            </div>
+
+            <!--row 4-->
+            <div class="row mt-2">
+                <div class="col-lg-12 d-flex justify-content-center">
+                    <p>Processed photo properties outlined below:</p>
                 </div>
             </div>
 
