@@ -358,6 +358,9 @@ $(document).ready(function() {
                             // console.log(`THIS IS THE DRINK CHOSEN ${drinks}`);
                             // Store the username into localStorage using "localStorage.setItem"
 
+//                             localStorage.setItem("drink", drinks);
+
+
                             // console.log(max);
                             // console.log(whichKey);
 
@@ -367,15 +370,50 @@ $(document).ready(function() {
                             localStorage.setItem("facePlusPlusEmotion", facePlusPlusEmotion);
 
 
+
                             // what happens when we accept photo
                             $('#acceptPhoto').on('click', function() {
+
+                                $('div.photo-results').removeClass('invisible');
+
+                                // add to the page
+                                $('#apiEmo').html(`Your face showed: ${facePlusPlusEmotion}`);
+
+                            })
+
+                            // on click event after hitting the submit button
+                            $('#submitEmo').on('click', function() {
+
+                                // moves to the next page
+                                window.location = "wireframe3.5.html";
+                            });
+
+
+                            // pull drink name from localstorage to run through our API
+                            drinks = localStorage.getItem("drink");
+                            // variable for queryURL
+                            var queryURL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drinks}`;
+
+                            // AJAX call for api
+                            $.ajax({
+                                url: queryURL,
+                                method: "GET"
+                            }).then(function(response) {
+                                console.log(`FULL DRINK DATA: ${JSON.stringify(response.drinks[0])}`);
+
 
                                 localStorage.setItem("drink", drinks);
                                 console.log(drinks);
                                 $('div.photo-results').removeClass('invisible');
 
+
                                 // add to the page
                                 $('#apiEmo').html(`Your face showed: ${facePlusPlusEmotion}`);
+//                                 // name of the drink
+//                                 let drinkName = JSON.stringify(response.drinks[0].strDrink);
+//                                 console.log(JSON.stringify(`This is the name of the drink: ${drinkName}`));
+//                                 // store in local
+//                                 localStorage.setItem("drink", drinkName);
 
                             })
 
@@ -437,6 +475,7 @@ if ((localStorage.getItem("sliderEmotion") !== null) && (localStorage.getItem("f
                                 // square bracket for objects
                                 if (response.drinks[0][`strIngredient${i}`] !== "") {
                                     ingredientsArr[ingredientsArr.length] = `${(response.drinks[0][`strMeasure${i}`].length > 3) ? response.drinks[0][`strMeasure${i}`] : ""} ${response.drinks[0][`strIngredient${i}`]}`
+
 
 
                         // ingredientsArr.push({
@@ -553,5 +592,7 @@ if ((localStorage.getItem("sliderEmotion") !== null) && (localStorage.getItem("f
                 console.log(e);
             })
     })
+
 }
+
 // *** About Us & Contact Page ***
