@@ -3,10 +3,10 @@ let slider = "";
 let facePlusPlusEmotion = "";
 
 // *** Birthday Page Confirmation ***
-$(document).ready(function() {
+$(document).ready(function () {
 
     // on click function for submit
-    $('#submit-birthday').on('click', function() {
+    $('#submit-birthday').on('click', function () {
         // variable for user inputted date
         var date = $('#picker').val();
         // console.log("date.valueOF(): " + date.valueOf());
@@ -23,12 +23,12 @@ $(document).ready(function() {
         // console.log("Age: " + parseInt(today - chosenDate));
 
         var ofAge = parseInt(today - chosenDate)
-            // if statement for date entered
+        // if statement for date entered
         if (ofAge >= 662256000000) {
             // if 21+ proceed to next page
             $('#ageRequirement').removeClass('invisible').html(`<h1>Let's Drink!</h1>`);
             // changes to next page after displaying message
-            setTimeout(function() {
+            setTimeout(function () {
                 window.location = "wireframe2.html";
             }, 4500);
 
@@ -43,9 +43,9 @@ $(document).ready(function() {
 
 // *** Description of Service & Slider page ***
 
-$(document).ready(function() {
+$(document).ready(function () {
 
-    $('.form-control-range').on('input', function() {
+    $('.form-control-range').on('input', function () {
         var output = parseInt($('.form-control-range').val());
         if (output <= 14) {
             $('.reader').text("Sad");
@@ -80,7 +80,7 @@ $(document).ready(function() {
 
 
 
-    $('#submit-slider').on('click', function() {
+    $('#submit-slider').on('click', function () {
         if ((slider === "sad") || (slider === "angry") || (slider === "afraid") || (slider === "neutral") || (slider === "anxious") || (slider === "surprised") || (slider === "happy")) {
             window.location = "wireframe3.html";
 
@@ -103,7 +103,7 @@ $(document).ready(function() {
 
 // *** Evaluation & Drink Recommendation page ***
 
-$(document).ready(function() {
+$(document).ready(function () {
 
     //Check if browser supports camera use
     // if statement for acceptance of camera use
@@ -167,7 +167,7 @@ $(document).ready(function() {
 
                 var reader = new FileReader();
                 reader.readAsDataURL(blob);
-                reader.onloadend = function() {
+                reader.onloadend = function () {
                     let base64data = reader.result;
                     // console.log(base64data);
 
@@ -175,17 +175,17 @@ $(document).ready(function() {
                     var queryURL = `https://api-us.faceplusplus.com/facepp/v3/detect?image_base64=${base64data}&api_key=XtvBZyeUXRy0uOEtl1mlG61af7JzBlIj&api_secret=tYNC1LAnUmHhUw_1IXhLLyKJXcZRHuvo`
 
                     $.ajax({
-                            // passing object through ajax
-                            url: 'https://api-us.faceplusplus.com/facepp/v3/detect',
-                            method: "POST",
-                            data: {
-                                api_key: 'XtvBZyeUXRy0uOEtl1mlG61af7JzBlIj',
-                                api_secret: 'tYNC1LAnUmHhUw_1IXhLLyKJXcZRHuvo',
-                                image_base64: base64data,
-                                return_attributes: 'gender,age,emotion'
-                            }
-                        })
-                        .then(function(response) {
+                        // passing object through ajax
+                        url: 'https://api-us.faceplusplus.com/facepp/v3/detect',
+                        method: "POST",
+                        data: {
+                            api_key: 'XtvBZyeUXRy0uOEtl1mlG61af7JzBlIj',
+                            api_secret: 'tYNC1LAnUmHhUw_1IXhLLyKJXcZRHuvo',
+                            image_base64: base64data,
+                            return_attributes: 'gender,age,emotion'
+                        }
+                    })
+                        .then(function (response) {
                             // console.log(`FACE++:`, response.faces[0].valueOf());
                             // pulls emotion from the main face in the photo
                             let obj = response.faces[0].attributes.emotion.valueOf();
@@ -203,7 +203,7 @@ $(document).ready(function() {
                                 }
 
                             }
-                            $('#acceptPhoto').on('click', function() {
+                            $('#acceptPhoto').on('click', function () {
                                 // console.log(`This is the obj % emotion ${max}`);
                                 // console.log(`This is the obj largest % emotion ${whichKey}`);
                                 slider = localStorage.getItem("sliderEmotion");
@@ -383,7 +383,7 @@ $(document).ready(function() {
                             })
 
                             // on click event after hitting the submit button
-                            $('#submitEmo').on('click', function() {
+                            $('#submitEmo').on('click', function () {
 
                                 // moves to the next page
                                 window.location = "wireframe3.5.html";
@@ -398,101 +398,101 @@ $(document).ready(function() {
     })
 })
 if ((localStorage.getItem("sliderEmotion") !== null) && (localStorage.getItem("facePlusPlusEmotion") !== null) && (localStorage.getItem("drink") !== null)) {
-    $(document).ready(function() {
-                // pull drink name from localstorage to run through our API
-                slider = localStorage.getItem("sliderEmotion");
-                facePlusPlusEmotion = localStorage.getItem("facePlusPlusEmotion");
-                let drinks = localStorage.getItem("drink");
+    $(document).ready(function () {
+        // pull drink name from localstorage to run through our API
+        slider = localStorage.getItem("sliderEmotion");
+        facePlusPlusEmotion = localStorage.getItem("facePlusPlusEmotion");
+        let drinks = localStorage.getItem("drink");
 
-                $('#userEmo').text(slider);
-                $('#apiEmo').text(facePlusPlusEmotion);
+        $('#userEmo').text(slider);
+        $('#apiEmo').text(facePlusPlusEmotion);
 
-                // variable for queryURL
-                var queryURL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drinks}`;
+        // variable for queryURL
+        var queryURL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drinks}`;
 
-                // AJAX call for api
-                $.ajax({
-                        url: queryURL,
-                        method: "GET"
-                    }).then(function(response) {
-                            // console.log(`FULL DRINK DATA: ${JSON.stringify(response.drinks[0])}`);
-
-
-                            // name of the drink
-                            let drinkStr = JSON.stringify(response.drinks[0].strDrink);
-                            let drinkName = drinkStr.replace(/\"/g, "");
-                            // console.log(JSON.stringify(`This is the name of the drink: ${drinkName}`));
-                            $('#drinkChoice').html(drinkName);
-                            $('#cocktailName').text(drinkName);
-
-                            // link to picture of drink in the html
-                            let imgStr = JSON.stringify(response.drinks[0].strDrinkThumb);
-                            let imgLink = imgStr.replace(/\"/g, "");
-
-                            // console.log(JSON.stringify(`This is the image link: ${response.drinks[0].strDrinkThumb}`));
-                            $('#cocktailImg').attr('src', imgLink);
+        // AJAX call for api
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
+            // console.log(`FULL DRINK DATA: ${JSON.stringify(response.drinks[0])}`);
 
 
-                            // ingredients
-                            const ingredientsArr = [];
-                            for (let i = 1; i <= 15; i++) {
-                                // response.drinks[0][`strIngredient${i}`]
-                                // square bracket for objects
-                                if (response.drinks[0][`strIngredient${i}`] !== "") {
-                                    ingredientsArr[ingredientsArr.length] = `${(response.drinks[0][`strMeasure${i}`].length > 3) ? response.drinks[0][`strMeasure${i}`] : ""} ${response.drinks[0][`strIngredient${i}`]}`
+            // name of the drink
+            let drinkStr = JSON.stringify(response.drinks[0].strDrink);
+            let drinkName = drinkStr.replace(/\"/g, "");
+            // console.log(JSON.stringify(`This is the name of the drink: ${drinkName}`));
+            $('#drinkChoice').html(drinkName);
+            $('#cocktailName').text(drinkName);
+
+            // link to picture of drink in the html
+            let imgStr = JSON.stringify(response.drinks[0].strDrinkThumb);
+            let imgLink = imgStr.replace(/\"/g, "");
+
+            // console.log(JSON.stringify(`This is the image link: ${response.drinks[0].strDrinkThumb}`));
+            $('#cocktailImg').attr('src', imgLink);
 
 
-                        // ingredientsArr.push({
-                                // ingredient: response.drinks[0][`strIngredient${i}`],
-                                // measure: (response.drinks[0][`strMeasure${i}`].length > 3) ? response.drinks[0][`strMeasure${i}`] : ""
-                                    // if true it displays it, if false on other side of column will ""
-                            // }
+            // ingredients
+            const ingredientsArr = [];
+            for (let i = 1; i <= 15; i++) {
+                // response.drinks[0][`strIngredient${i}`]
+                // square bracket for objects
+                if (response.drinks[0][`strIngredient${i}`] !== "") {
+                    ingredientsArr[ingredientsArr.length] = `${(response.drinks[0][`strMeasure${i}`].length > 3) ? response.drinks[0][`strMeasure${i}`] : ""} ${response.drinks[0][`strIngredient${i}`]}`
 
-                        // )
-                    }
 
+                    // ingredientsArr.push({
+                    // ingredient: response.drinks[0][`strIngredient${i}`],
+                    // measure: (response.drinks[0][`strMeasure${i}`].length > 3) ? response.drinks[0][`strMeasure${i}`] : ""
+                    // if true it displays it, if false on other side of column will ""
+                    // }
+
+                    // )
                 }
-                // console.log(ingredientsArr);
 
-                $('#ingredients').text(ingredientsArr.join(", "));
+            }
+            // console.log(ingredientsArr);
 
-                // // instructions
-                let instructionsStr = JSON.stringify(response.drinks[0].strInstructions);
-                console.log(JSON.stringify(response.drinks[0].strInstructions));
-                let instructions = instructionsStr.replace(/\"/g, "");
-                $('#recipe').text(instructions);
+            $('#ingredients').text(ingredientsArr.join(", "));
 
-
-                //     // *** ADD to wireframe 3.5 ***
-                //     // get slider from local storage
-                //     // console.log(`THIS IS THE SLIDER INPUT: ${slider}`);
-                //     $('#userEmo').text(`You said you were: ${slider}`);
-                //     // add face++ emotion to the page
+            // // instructions
+            let instructionsStr = JSON.stringify(response.drinks[0].strInstructions);
+            console.log(JSON.stringify(response.drinks[0].strInstructions));
+            let instructions = instructionsStr.replace(/\"/g, "");
+            $('#recipe').text(instructions);
 
 
-                //     // get data from the local storage
-                //     let facePlusPlusEmotion = localStorage.getItem("facePlusPlusEmotion");
-                //     // display
-                //     $('#apiEmo').html(`Your face showed: ${facePlusPlusEmotion}`);
-
-                //     // get data from local storage
-                //     let drink = localStorage.getItem("drink");
-                //     // add drink choice to wireframe 3
-                //     $('#drinkChoice').html(`We recommend you have a: ${drink}`);
-
-                //     // get data from local storage
-                //     // let imgLink = localStorage.getItem("imageLink");
-                //     // put that link to img in our page
-                //     // $('#cocktailImg').attr('src', imgLink);
+            //     // *** ADD to wireframe 3.5 ***
+            //     // get slider from local storage
+            //     // console.log(`THIS IS THE SLIDER INPUT: ${slider}`);
+            //     $('#userEmo').text(`You said you were: ${slider}`);
+            //     // add face++ emotion to the page
 
 
-                //     // put ingredients in our page
-                //     $('#ingredients').text(ingredients);
-                //     // put instructions in our wireframe 3.5 page
-                //     $('#recipe').text(instructions);
-                //     // user slider input
-                //     // $('#userEmo').text(`${slider}`);
-            })
+            //     // get data from the local storage
+            //     let facePlusPlusEmotion = localStorage.getItem("facePlusPlusEmotion");
+            //     // display
+            //     $('#apiEmo').html(`Your face showed: ${facePlusPlusEmotion}`);
+
+            //     // get data from local storage
+            //     let drink = localStorage.getItem("drink");
+            //     // add drink choice to wireframe 3
+            //     $('#drinkChoice').html(`We recommend you have a: ${drink}`);
+
+            //     // get data from local storage
+            //     // let imgLink = localStorage.getItem("imageLink");
+            //     // put that link to img in our page
+            //     // $('#cocktailImg').attr('src', imgLink);
+
+
+            //     // put ingredients in our page
+            //     $('#ingredients').text(ingredients);
+            //     // put instructions in our wireframe 3.5 page
+            //     $('#recipe').text(instructions);
+            //     // user slider input
+            //     // $('#userEmo').text(`${slider}`);
+        })
             .catch(e => {
                 console.log(e);
             })
