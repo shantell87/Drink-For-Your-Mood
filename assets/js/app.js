@@ -104,9 +104,7 @@ $(document).ready(function() {
 // *** Evaluation & Drink Recommendation page ***
 
 $(document).ready(function() {
-    slider = localStorage.getItem("sliderEmotion");
-    // object for 50 different drink options
-    // console.log("SLIDER: " + slider);
+
     //Check if browser supports camera use
     // if statement for acceptance of camera use
     const supported = 'mediaDevices' in navigator;
@@ -354,12 +352,14 @@ $(document).ready(function() {
                             } else if (slider === 'suprised' && whichKey === 'happiness') {
                                 drinks = `moscow_mule`;
                                 // Slider: Happiness	Face++: Happiness	Cocktail Reco: Margarita
-                            } else if (whichKey === 'happiness' && slider === 'happy') {
+                            } else if (slider === 'happy' && whichKey === 'happiness') {
                                 drinks = `margarita`;
                             }
                             // console.log(`THIS IS THE DRINK CHOSEN ${drinks}`);
                             // Store the username into localStorage using "localStorage.setItem"
-                            localStorage.setItem("drink", drinks);
+
+//                             localStorage.setItem("drink", drinks);
+
 
                             // console.log(max);
                             // console.log(whichKey);
@@ -368,6 +368,7 @@ $(document).ready(function() {
                             facePlusPlusEmotion = whichKey;
                             // Store the facePlusPlus emotion into localStorage using "localStorage.setItem"
                             localStorage.setItem("facePlusPlusEmotion", facePlusPlusEmotion);
+
 
 
                             // what happens when we accept photo
@@ -401,75 +402,197 @@ $(document).ready(function() {
                                 console.log(`FULL DRINK DATA: ${JSON.stringify(response.drinks[0])}`);
 
 
-                                // name of the drink
-                                let drinkName = JSON.stringify(response.drinks[0].strDrink);
-                                console.log(JSON.stringify(`This is the name of the drink: ${drinkName}`));
-                                // store in local
-                                localStorage.setItem("drink", drinkName);
+                                localStorage.setItem("drink", drinks);
+                                console.log(drinks);
+                                $('div.photo-results').removeClass('invisible');
 
 
-                                // link to picture of drink in the html
-                                let imgLink = JSON.stringify(response.drinks[0].strDrinkThumb);
-                                console.log(JSON.stringify(`This is the image link: ${response.drinks[0].strDrinkThumb}`));
-                                // store in local
-                                localStorage.setItem("imageLink", imgLink);
-
-                                // ingredients
-                                let ingredients = JSON.stringify(response.drinks[0].strIngredient1 + ", " + response.drinks[0].strIngredient2 + ", " + response.drinks[0].strIngredient3 + ", " + response.drinks[0].strIngredient4 + ", " + response.drinks[0].strIngredient5 + ", " + response.drinks[0].strIngredient6 + ", " + response.drinks[0].strIngredient7 + ", " + response.drinks[0].strIngredient8 + ", " + response.drinks[0].strIngredient9 + ", " + response.drinks[0].strIngredient10);
-                                // store in local
-                                localStorage.setItem("ingredients", ingredients);
-
-                                // instructions
-                                let instructions = JSON.stringify(response.drinks[0].strInstructions);
-                                // instructions
-
-
-                                // *** ADD to wireframe 3.5 ***
-                                // get slider from local storage
-                                let slider = localStorage.getItem("sliderEmotion");
-                                // console.log(`THIS IS THE SLIDER INPUT: ${slider}`);
-                                $('#userEmo').text(`You said you were: ${slider}`);
-                                // add face++ emotion to the page
-
-
-                                // get data from the local storage
-                                let facePlusPlusEmotion = localStorage.getItem("facePlusPlusEmotion");
-                                // display
+                                // add to the page
                                 $('#apiEmo').html(`Your face showed: ${facePlusPlusEmotion}`);
+//                                 // name of the drink
+//                                 let drinkName = JSON.stringify(response.drinks[0].strDrink);
+//                                 console.log(JSON.stringify(`This is the name of the drink: ${drinkName}`));
+//                                 // store in local
+//                                 localStorage.setItem("drink", drinkName);
 
-                                // get data from local storage
-                                let drink = localStorage.getItem("drink");
-                                // add drink choice to wireframe 3
-                                $('#drinkChoice').html(`We recommend you have a: ${drink}`);
-
-                                // get data from local storage
-                                let imgLink = localStorage.getItem("imageLink");
-                                // put that link to img in our page
-                                $('#cocktailImg').attr('src', imgLink);
-
-
-                                // put ingredients in our page
-                                $('#ingredients').text(ingredients);
-                                // put instructions in our wireframe 3.5 page
-                                $('#recipe').text(instructions);
-                                // user slider input
-                                // $('#userEmo').text(`${slider}`);
                             })
 
+                            // on click event after hitting the submit button
+                            $('#submitEmo').on('click', function() {
 
+                                // moves to the next page
+                                window.location = "wireframe3.5.html";
+                            });
                         })
-                        .catch(e => {
-                            console.log(e);
-                        })
-
-
                 }
             })
             .catch(e => {
                 console.error("takePhoto() failed: ", e);
             });
+
+    })
+})
+if ((localStorage.getItem("sliderEmotion") !== null) && (localStorage.getItem("facePlusPlusEmotion") !== null) && (localStorage.getItem("drink") !== null)) {
+    $(document).ready(function() {
+                // pull drink name from localstorage to run through our API
+                slider = localStorage.getItem("sliderEmotion");
+                facePlusPlusEmotion = localStorage.getItem("facePlusPlusEmotion");
+                let drinks = localStorage.getItem("drink");
+
+                $('#userEmo').text(slider);
+                $('#apiEmo').text(facePlusPlusEmotion);
+
+                // variable for queryURL
+                var queryURL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drinks}`;
+
+                // AJAX call for api
+                $.ajax({
+                        url: queryURL,
+                        method: "GET"
+                    }).then(function(response) {
+                            // console.log(`FULL DRINK DATA: ${JSON.stringify(response.drinks[0])}`);
+
+
+                            // name of the drink
+                            let drinkStr = JSON.stringify(response.drinks[0].strDrink);
+                            let drinkName = drinkStr.replace(/\"/g, "");
+                            console.log(JSON.stringify(`This is the name of the drink: ${drinkName}`));
+                            $('#drinkChoice').html(drinkName);
+                            $('#cocktailName').text(drinkName);
+
+                            // link to picture of drink in the html
+                            let imgStr = JSON.stringify(response.drinks[0].strDrinkThumb);
+                            let imgLink = imgStr.replace(/\"/g, "");
+
+                            console.log(JSON.stringify(`This is the image link: ${response.drinks[0].strDrinkThumb}`));
+                            $('#cocktailImg').attr('src', imgLink);
+
+
+                            // ingredients
+                            const ingredientsArr = [];
+                            for (let i = 1; i <= 15; i++) {
+                                // response.drinks[0][`strIngredient${i}`]
+                                // square bracket for objects
+                                if (response.drinks[0][`strIngredient${i}`] !== "") {
+                                    ingredientsArr[ingredientsArr.length] = `${(response.drinks[0][`strMeasure${i}`].length > 3) ? response.drinks[0][`strMeasure${i}`] : ""} ${response.drinks[0][`strIngredient${i}`]}`
+
+
+
+                        // ingredientsArr.push({
+                                // ingredient: response.drinks[0][`strIngredient${i}`],
+                                // measure: (response.drinks[0][`strMeasure${i}`].length > 3) ? response.drinks[0][`strMeasure${i}`] : ""
+                                    // if true it displays it, if false on other side of column will ""
+                            // }
+
+                        // )
+                    }
+
+                }
+                console.log(ingredientsArr);
+
+                $('#ingredients').text(ingredientsArr.join(", "));
+
+                // if (response.drinks[0].hasOwnProperty(strIngredient2)) {
+                //     let ingredient2 = ", " + JSON.stringify(response.drinks[0].strIngredient2);
+                // } else {
+                //     let ingredient2 = "";
+                // }
+
+                // if (response.drinks[0].hasOwnProperty(strIngredient3)) {
+                //     let ingredient3 = ", " + JSON.stringify(response.drinks[0].strIngredient3);
+                // } else {
+                //     let ingredient3 = "";
+                // }
+
+                // if (response.drinks[0].hasOwnProperty(strIngredient4)) {
+                //     let ingredient4 = ", " + JSON.stringify(response.drinks[0].strIngredient4);
+                // } else {
+                //     let ingredient4 = "";
+                // }
+
+                // if (response.drinks[0].hasOwnProperty(strIngredient5)) {
+                //     let ingredient5 = ", " + JSON.stringify(response.drinks[0].strIngredient5);
+                // } else {
+                //     let ingredient5 = "";
+                // }
+
+                // if (response.drinks[0].hasOwnProperty(strIngredient6)) {
+                //     let ingredient6 = ", " + JSON.stringify(response.drinks[0].strIngredient6);
+                // } else {
+                //     let ingredient6 = "";
+                // }
+
+                // if (response.drinks[0].hasOwnProperty(strIngredient7)) {
+                //     let ingredient7 = ", " + JSON.stringify(response.drinks[0].strIngredient7);
+                // } else {
+                //     let ingredient7 = "";
+                // }
+
+                // if (response.drinks[0].hasOwnProperty(strIngredient8)) {
+                //     let ingredient8 = ", " + JSON.stringify(response.drinks[0].strIngredient8);
+                // } else {
+                //     let ingredient8 = "";
+                // }
+
+                // if (response.drinks[0].hasOwnProperty(strIngredient9)) {
+                //     let ingredient9 = ", " + JSON.stringify(response.drinks[0].strIngredient9);
+                // } else {
+                //     let ingredient9 = "";
+                // }
+
+                // if (response.drinks[0].hasOwnProperty(strIngredient10)) {
+                //     let ingredient10 = ", " + JSON.stringify(response.drinks[0].strIngredient10);
+                // } else {
+                //     let ingredient10 = "";
+                // }
+
+                let ingredientsStr = JSON.stringify(response.drinks[0].strIngredient1) + ingredient2 + ingredient3 + ingredient4 + ingredient5 + ingredient6 + ingredient7 + ingredient8 + ingredient9 + ingredient10;
+
+                let ingredients = ingredientsStr.replace(/\"/g, "");
+                $('#ingredients').text(ingredients);
+                console.log("ingredients: " + ingredients);
+
+                // // instructions
+                let instructionsStr = JSON.stringify(response.drinks[0].strInstructions);
+                let instructions = instructionsStr.replace(/\"/g, "");
+                $('#recipe').text(instructions);
+
+
+                //     // *** ADD to wireframe 3.5 ***
+                //     // get slider from local storage
+                //     // console.log(`THIS IS THE SLIDER INPUT: ${slider}`);
+                //     $('#userEmo').text(`You said you were: ${slider}`);
+                //     // add face++ emotion to the page
+
+
+                //     // get data from the local storage
+                //     let facePlusPlusEmotion = localStorage.getItem("facePlusPlusEmotion");
+                //     // display
+                //     $('#apiEmo').html(`Your face showed: ${facePlusPlusEmotion}`);
+
+                //     // get data from local storage
+                //     let drink = localStorage.getItem("drink");
+                //     // add drink choice to wireframe 3
+                //     $('#drinkChoice').html(`We recommend you have a: ${drink}`);
+
+                //     // get data from local storage
+                //     // let imgLink = localStorage.getItem("imageLink");
+                //     // put that link to img in our page
+                //     // $('#cocktailImg').attr('src', imgLink);
+
+
+                //     // put ingredients in our page
+                //     $('#ingredients').text(ingredients);
+                //     // put instructions in our wireframe 3.5 page
+                //     $('#recipe').text(instructions);
+                //     // user slider input
+                //     // $('#userEmo').text(`${slider}`);
+            })
+            .catch(e => {
+                console.log(e);
+            })
     })
 
-});
+}
 
 // *** About Us & Contact Page ***
