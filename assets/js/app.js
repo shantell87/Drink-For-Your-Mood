@@ -32,12 +32,12 @@ $(document).ready(function() {
                 window.location = "wireframe2.html";
             }, 4500);
 
-        } else {
+        }else{
             // else denied!
             // console.log("NOPE! Rejected");
             $('#ageRequirement').removeClass('invisible');
         }
-    })
+    });
 
 });
 
