@@ -456,66 +456,6 @@ if ((localStorage.getItem("sliderEmotion") !== null) && (localStorage.getItem("f
 
                 $('#ingredients').text(ingredientsArr.join(", "));
 
-                // if (response.drinks[0].hasOwnProperty(strIngredient2)) {
-                //     let ingredient2 = ", " + JSON.stringify(response.drinks[0].strIngredient2);
-                // } else {
-                //     let ingredient2 = "";
-                // }
-
-                // if (response.drinks[0].hasOwnProperty(strIngredient3)) {
-                //     let ingredient3 = ", " + JSON.stringify(response.drinks[0].strIngredient3);
-                // } else {
-                //     let ingredient3 = "";
-                // }
-
-                // if (response.drinks[0].hasOwnProperty(strIngredient4)) {
-                //     let ingredient4 = ", " + JSON.stringify(response.drinks[0].strIngredient4);
-                // } else {
-                //     let ingredient4 = "";
-                // }
-
-                // if (response.drinks[0].hasOwnProperty(strIngredient5)) {
-                //     let ingredient5 = ", " + JSON.stringify(response.drinks[0].strIngredient5);
-                // } else {
-                //     let ingredient5 = "";
-                // }
-
-                // if (response.drinks[0].hasOwnProperty(strIngredient6)) {
-                //     let ingredient6 = ", " + JSON.stringify(response.drinks[0].strIngredient6);
-                // } else {
-                //     let ingredient6 = "";
-                // }
-
-                // if (response.drinks[0].hasOwnProperty(strIngredient7)) {
-                //     let ingredient7 = ", " + JSON.stringify(response.drinks[0].strIngredient7);
-                // } else {
-                //     let ingredient7 = "";
-                // }
-
-                // if (response.drinks[0].hasOwnProperty(strIngredient8)) {
-                //     let ingredient8 = ", " + JSON.stringify(response.drinks[0].strIngredient8);
-                // } else {
-                //     let ingredient8 = "";
-                // }
-
-                // if (response.drinks[0].hasOwnProperty(strIngredient9)) {
-                //     let ingredient9 = ", " + JSON.stringify(response.drinks[0].strIngredient9);
-                // } else {
-                //     let ingredient9 = "";
-                // }
-
-                // if (response.drinks[0].hasOwnProperty(strIngredient10)) {
-                //     let ingredient10 = ", " + JSON.stringify(response.drinks[0].strIngredient10);
-                // } else {
-                //     let ingredient10 = "";
-                // }
-
-                let ingredientsStr = JSON.stringify(response.drinks[0].strIngredient1) + ingredient2 + ingredient3 + ingredient4 + ingredient5 + ingredient6 + ingredient7 + ingredient8 + ingredient9 + ingredient10;
-
-                let ingredients = ingredientsStr.replace(/\"/g, "");
-                $('#ingredients').text(ingredients);
-                // console.log("ingredients: " + ingredients);
-
                 // // instructions
                 let instructionsStr = JSON.stringify(response.drinks[0].strInstructions);
                 console.log(JSON.stringify(response.drinks[0].strInstructions));
