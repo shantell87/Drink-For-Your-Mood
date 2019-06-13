@@ -36,14 +36,15 @@
 
 <body class="text-center d-flex flex-column h-100">
     
-    <div class="view" style="background-image: url(./assets/images/bar.jpg); ; background-repeat: no-repeat; background-size: cover; background-position: center center; height: 100%">
     
-        <!-- Navbar -->
-    <header class="masthead mb-auto px-5">
-        <div class="row navbar navbar-light" style="background-color:#2d1606;" aria-label="breadcrumb">
+
+    <!-- Navbar -->
+    <header class="mb-auto">
+        <div class="row navbar navbar-light px-5" style="background-color:#2d1606;" aria-label="breadcrumb">
             <div class="col d-flex justify-content-start">
-                <a class="navbar-brand" href="#">
-                    <img src="./assets/images/emoji.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                <a class="navbar-brand" href="index.html">
+                    <img src="./assets/images/emoji.png" width="30" height="30" class="d-inline-block align-top" alt="moody emoji">
+
                     <strong style="color: white">A Drink For Your Mood</strong>
                 </a>
             </div>
@@ -55,29 +56,29 @@
         </div>
     </header>
     
-        <!-- Navbar End -->
+    <!-- Navbar End -->
+    <div class="view" style="background-image: url(./assets/images/bar.jpg); background-repeat: no-repeat; background-size: cover; background-position: center; height: 100%">
 
         <div class="container"> <!--page container-->
-    
-            <!-- date Input -->
-    <div class="jumbotron m-5">
-            <h1 class="display-4">Confirm Your Birthday</h1>
-            <div class="container col-md-6 col-sm-12">
-                <input type="date" id="picker" class="form-control text-center">
-                <button type="submit" class="btn btn-primary mt-2" id="submit-birthday">Submit</button>
+        
+                <!-- date Input -->
+            <div class="jumbotron m-5">
+                <h1 class="display-4">Confirm Your Birthday</h1>
+                <div class="container col-md-6 col-sm-12">
+                    <input type="date" id="picker" class="form-control text-center">
+                    <button type="submit" class="btn btn-primary mt-2" id="submit-birthday">Submit</button>
+                </div>
             </div>
+
+            <div class="invisible mt-5 mb-5 bg-light" id="ageRequirement" class="d-flex flex-wrap">
+                <H1>You must be 21+ to enter this site!</H1>
+            </div>
+
+
         </div>
-
-        <div class="invisible mt-5 mb-5 bg-light" id="ageRequirement" class="d-flex flex-wrap">
-            <H1>You must be 21+ to enter this site!</H1>
-        </div>
-
-
     </div>
-</div>
-<!-- body container End -->
-
-</div> <!--bcg img end-->
+    <!-- body container End -->
+    <!--bcg img end-->
 
     <footer class="footer mt-auto py-3 px-5" style="background-color:#2d1606">
         <!-- 8 16 8 16 // 1078 40   -->
@@ -90,10 +91,10 @@
             <div class="col-sm-6">
                 <ul class="nav justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="wireframe4.html">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact Us</a>
+                        <a class="nav-link" href="wireframe4.html">Contact Us</a>
                     </li>
                 </ul>
             </div>
