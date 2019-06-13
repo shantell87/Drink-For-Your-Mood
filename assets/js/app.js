@@ -206,6 +206,7 @@ $(document).ready(function() {
                             $('#acceptPhoto').on('click', function() {
                                 // console.log(`This is the obj % emotion ${max}`);
                                 // console.log(`This is the obj largest % emotion ${whichKey}`);
+                                slider = localStorage.getItem("sliderEmotion");
                                 let drinks = "";
                                 // If first slider chosen and Face++ reads, then recommend:
                                 // Slider: Sadness	Face++: Sadness	    Cocktail Reco: Whiskey Sour
@@ -360,7 +361,8 @@ $(document).ready(function() {
                                 // Store the username into localStorage using "localStorage.setItem"
 
                                 // console.log(max);
-                                // console.log(whichKey);
+                                console.log(whichKey);
+                                console.log(slider);
 
                                 // set global variable to facePlusPlusEmotion
                                 facePlusPlusEmotion = whichKey;
@@ -419,7 +421,7 @@ if ((localStorage.getItem("sliderEmotion") !== null) && (localStorage.getItem("f
                             // name of the drink
                             let drinkStr = JSON.stringify(response.drinks[0].strDrink);
                             let drinkName = drinkStr.replace(/\"/g, "");
-                            console.log(JSON.stringify(`This is the name of the drink: ${drinkName}`));
+                            // console.log(JSON.stringify(`This is the name of the drink: ${drinkName}`));
                             $('#drinkChoice').html(drinkName);
                             $('#cocktailName').text(drinkName);
 
@@ -427,7 +429,7 @@ if ((localStorage.getItem("sliderEmotion") !== null) && (localStorage.getItem("f
                             let imgStr = JSON.stringify(response.drinks[0].strDrinkThumb);
                             let imgLink = imgStr.replace(/\"/g, "");
 
-                            console.log(JSON.stringify(`This is the image link: ${response.drinks[0].strDrinkThumb}`));
+                            // console.log(JSON.stringify(`This is the image link: ${response.drinks[0].strDrinkThumb}`));
                             $('#cocktailImg').attr('src', imgLink);
 
 
@@ -450,7 +452,7 @@ if ((localStorage.getItem("sliderEmotion") !== null) && (localStorage.getItem("f
                     }
 
                 }
-                console.log(ingredientsArr);
+                // console.log(ingredientsArr);
 
                 $('#ingredients').text(ingredientsArr.join(", "));
 
@@ -512,10 +514,11 @@ if ((localStorage.getItem("sliderEmotion") !== null) && (localStorage.getItem("f
 
                 let ingredients = ingredientsStr.replace(/\"/g, "");
                 $('#ingredients').text(ingredients);
-                console.log("ingredients: " + ingredients);
+                // console.log("ingredients: " + ingredients);
 
                 // // instructions
                 let instructionsStr = JSON.stringify(response.drinks[0].strInstructions);
+                console.log(JSON.stringify(response.drinks[0].strInstructions));
                 let instructions = instructionsStr.replace(/\"/g, "");
                 $('#recipe').text(instructions);
 
