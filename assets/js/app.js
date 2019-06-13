@@ -9,18 +9,18 @@ $(document).ready(function() {
     $('#submit-birthday').on('click', function() {
         // variable for user inputted date
         var date = $('#picker').val();
-        console.log("date.valueOF(): " + date.valueOf());
-        console.log("moment of: " + moment(date).valueOf())
+        // console.log("date.valueOF(): " + date.valueOf());
+        // console.log("moment of: " + moment(date).valueOf())
 
         // chosen date to unix
         var chosenDate = moment(date).valueOf()
 
         // variable for todays date
         var today = parseInt(moment().valueOf());
-        console.log("today: " + today);
+        // console.log("today: " + today);
 
         // Getting age by subracting today from chosen date
-        console.log("Age: " + parseInt(today - chosenDate));
+        // console.log("Age: " + parseInt(today - chosenDate));
 
         var ofAge = parseInt(today - chosenDate)
             // if statement for date entered
