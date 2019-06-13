@@ -26,11 +26,28 @@ $(document).ready(function() {
             // if statement for date entered
         if (ofAge >= 662256000000) {
             // if 21+ proceed to next page
-            $('#ageRequirement').removeClass('invisible').html(`<h1>Let's Drink!</h1>`);
+            $('#ageRequirement').removeClass('invisible')
+            $('#ageRequirement h1').text(`Let's Drink!`);
+            function giphy() {
+                $.ajax({
+                    url: `https://api.giphy.com/v1/gifs/search?api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&q=drinking`,
+                    method: "GET"
+                }).then(function(response) {
+                    var index = Math.floor(Math.random()*25);
+                    var gifURL = response.data[index].images.fixed_height.url;
+                    var $card = $(`<div>`);
+                    var $addGif = $("<img>");
+                    $addGif.attr("src", gifURL);
+                    $addGif.attr("alt", "drinking");
+                    $card.append($addGif); 
+                    $('#ageRequirement').append($card);
+                })
+            }
+            giphy();
             // changes to next page after displaying message
             setTimeout(function() {
                 window.location = "wireframe2.html";
-            }, 4500);
+            }, 4000);
 
         } else {
             // else denied!
@@ -75,7 +92,22 @@ $(document).ready(function() {
             $('.reader').text("Happy");
             slider = "happy";
         }
-
+        function giphy() {
+            $.ajax({
+                url: `https://api.giphy.com/v1/gifs/search?api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&q=${slider}`,
+                method: "GET"
+            }).then(function(response) {
+                var index = Math.floor(Math.random()*25);
+                var gifURL = response.data[index].images.fixed_height.url;
+                var $card = $(`<div>`);
+                var $addGif = $("<img>");
+                $addGif.attr("src", gifURL);
+                $addGif.attr("alt", `${slider}`);
+                $card.append($addGif); 
+                $('div.mood').html($card);
+            })
+        }
+        giphy();
     })
 
 
