@@ -212,7 +212,7 @@ $(document).ready(function() {
                                 // If first slider chosen and Face++ reads, then recommend:
                                 // Slider: Sadness	Face++: Sadness	    Cocktail Reco: Whiskey Sour
                                 if (slider === 'sad' && whichKey === 'sadness') {
-                                    drinks = "whisky_sour";
+                                    drinks = "whiskey_sour";
                                     // Slider: Anger	Face++: Sadness	    Cocktail Reco: Mulled Wine
                                 } else if (slider === 'angry' && whichKey === 'sadness') {
                                     drinks = "mulled_wine";
