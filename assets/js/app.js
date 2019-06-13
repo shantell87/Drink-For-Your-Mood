@@ -3,10 +3,10 @@ let slider = "";
 let facePlusPlusEmotion = "";
 
 // *** Birthday Page Confirmation ***
-$(document).ready(function () {
+$(document).ready(function() {
 
     // on click function for submit
-    $('#submit-birthday').on('click', function () {
+    $('#submit-birthday').on('click', function() {
         // variable for user inputted date
         var date = $('#picker').val();
         // console.log("date.valueOF(): " + date.valueOf());
@@ -23,16 +23,16 @@ $(document).ready(function () {
         // console.log("Age: " + parseInt(today - chosenDate));
 
         var ofAge = parseInt(today - chosenDate)
-        // if statement for date entered
+            // if statement for date entered
         if (ofAge >= 662256000000) {
             // if 21+ proceed to next page
             $('#ageRequirement').removeClass('invisible').html(`<h1>Let's Drink!</h1>`);
             // changes to next page after displaying message
-            setTimeout(function () {
+            setTimeout(function() {
                 window.location = "wireframe2.html";
             }, 4500);
 
-        }else{
+        } else {
             // else denied!
             // console.log("NOPE! Rejected");
             $('#ageRequirement').removeClass('invisible');
@@ -43,9 +43,9 @@ $(document).ready(function () {
 
 // *** Description of Service & Slider page ***
 
-$(document).ready(function () {
+$(document).ready(function() {
 
-    $('.form-control-range').on('input', function () {
+    $('.form-control-range').on('input', function() {
         var output = parseInt($('.form-control-range').val());
         if (output <= 14) {
             $('.reader').text("Sad");
@@ -80,7 +80,7 @@ $(document).ready(function () {
 
 
 
-    $('#submit-slider').on('click', function () {
+    $('#submit-slider').on('click', function() {
         if ((slider === "sad") || (slider === "angry") || (slider === "afraid") || (slider === "neutral") || (slider === "anxious") || (slider === "surprised") || (slider === "happy")) {
             window.location = "wireframe3.html";
 
@@ -168,7 +168,7 @@ $(document).ready(function() {
 
                 var reader = new FileReader();
                 reader.readAsDataURL(blob);
-                reader.onloadend = function () {
+                reader.onloadend = function() {
                     let base64data = reader.result;
                     // console.log(base64data);
 
@@ -362,8 +362,8 @@ $(document).ready(function() {
                                 // Store the username into localStorage using "localStorage.setItem"
 
                                 // console.log(max);
-                                console.log(whichKey);
-                                console.log(slider);
+                                // console.log(whichKey);
+                                // console.log(slider);
 
                                 // set global variable to facePlusPlusEmotion
                                 facePlusPlusEmotion = whichKey;
@@ -375,7 +375,7 @@ $(document).ready(function() {
 
 
                                 localStorage.setItem("drink", drinks);
-                                console.log(drinks);
+                                // console.log(drinks);
                                 $('div.photo-results').removeClass('invisible');
 
                                 // add to the page
@@ -460,7 +460,7 @@ if ((localStorage.getItem("sliderEmotion") !== null) && (localStorage.getItem("f
 
                 // // instructions
                 let instructionsStr = JSON.stringify(response.drinks[0].strInstructions);
-                console.log(JSON.stringify(response.drinks[0].strInstructions));
+                // console.log(JSON.stringify(response.drinks[0].strInstructions));
                 let instructions = instructionsStr.replace(/\"/g, "");
                 $('#recipe').text(instructions);
 
