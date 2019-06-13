@@ -35,47 +35,34 @@
 </head>
 
 <body class="text-center d-flex flex-column h-100">
-    <!-- bcg image -->
-    <div class="view"
-        style="background-image: url(./assets/images/bar.jpg); ; background-repeat: no-repeat; background-size: cover; background-position: center center; height: 100%">
-
-        <!-- Navbar -->
-        <header class="masthead mb-auto px-5">
-            <div class="row navbar navbar-light" style="background-color:#2d1606;" aria-label="breadcrumb">
-                <div class="col d-flex justify-content-start">
-                    <a class="navbar-brand" href="#">
-                        <img src="./assets/images/emoji.png" width="30" height="30" class="d-inline-block align-top"
-                            alt="">
-                        <strong style="color: white">A Drink For Your Mood</strong>
-                    </a>
-                </div>
-                <div class="col d-flex justify-content-end">
-                    <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item active" aria-current="page">Mood Check</li>
-                    </ol>
-                </div>
+    <!-- Navbar -->
+    <header class="mb-auto">
+        <div class="row navbar navbar-light px-5" style="background-color:#2d1606;" aria-label="breadcrumb">
+            <div class="col d-flex justify-content-start">
+                <a class="navbar-brand" href="index.html">
+                    <img src="./assets/images/emoji.png" width="30" height="30" class="d-inline-block align-top" alt="moody emoji">
+                    <strong style="color: white">A Drink For Your Mood</strong>
+                </a>
             </div>
-        </header>
-        <!-- Navbar End -->
+            <div class="col d-flex justify-content-end">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item active" aria-current="page">Mood Check</li>
+                </ol>
+            </div>
+        </div>
+    </header>
+    <!-- Navbar End -->
+    
+    <!-- bcg image -->
+    
+    <div class="view" style="background-image: url(./assets/images/bar.jpg); ; background-repeat: no-repeat; background-size: cover; background-position: center; height: 100%">
 
         <div class="container">
-
-            <!-- description container -->
-            <div class="container text-center d-flex justify-content-center" id="description">
-                <div class="card mt-3 mb-3">
-                    <h5 class="card-header">Description</h5>
-                    <div class="card-body" style="width: 800px">
-                        <p class="card-text">Before we take your picture and read your mood, we need for you to share
-                            how
-                            you feel your mood is at this current moment. Please use the below slider that runs from Sad
-                            (left) to Happy (right) and includes other moods like Surprised and Afraid. After you've
-                            selected your mood, please press Proceed.</p>
-                    </div>
-                </div>
+            <div class="container bg-light rounded my-4 py-3" style="width: 85%">
+                <h3>SLIDE TO YOUR MOOD</h3>
             </div>
-
             <!-- slider container -->
-            <div class="container bg-light" style="width: 900px">
+            <div class="container bg-light rounded" style="width: 85%">
                 <div class="d-flex justify-content-center my-4 pt-4">
                     <span class="font-weight-bold purple-text mr-2">Sad</span>
                     <form class="range-field w-75 pt-1">
@@ -89,36 +76,47 @@
                 </div>
             </div>
             <!-- slider container end -->
+            
+            <!-- description container -->
+            <div class="container text-center d-flex justify-content-center px-0 my-5" style="width: 85%" id="description">
+                <div class="card mt-3 mb-3">
+                    <h5 class="card-header">Description</h5>
+                    <div class="card-body">
+                        <p class="card-text"><small>Before we take your picture and read your mood, we need for you to share how you feel your mood is at this current moment. Please use the below slider that runs from Sad (left) to Happy (right) and includes other moods like Surprised and Afraid. After you've selected your mood, please press Proceed.</small></p>
+                    </div>
+                </div>
+            </div>
+            <!-- description container end -->
 
         </div>
         <!-- body container End -->
-    </div>
-    <!-- img container end -->
-
-    <!-- Footer -->
-    <footer class="footer mt-auto py-3 px-5" style="background-color:#2d1606">
-        <!-- 8 16 8 16 // 1078 40   -->
-        <div class="row">
-            <div class="col">
-                <ul class="nav justify-content-start">
-                    <li class="nav-item disabled py-2 px-3" style="color: white">@TEAM R.S.G.</li>
-                </ul>
-            </div>
-            <div class="col-sm-6">
-                <ul class="nav justify-content-end">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact Us</a>
-                    </li>
-                </ul>
-            </div>
+        
+        <!-- Footer -->
+        <footer class="footer mt-auto py-3 px-5" style="background-color:#2d1606">
+                <!-- 8 16 8 16 // 1078 40   -->
+                <div class="row">
+                    <div class="col">
+                        <ul class="nav justify-content-start">
+                            <li class="nav-item disabled py-2 px-3" style="color: white">@TEAM R.S.G.</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6">
+                        <ul class="nav justify-content-end">
+                            <li class="nav-item">
+                                <a class="nav-link" href="wireframe4.html">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="wireframe4.html">Contact Us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </footer>
         </div>
-
-    </footer>
-    <script src="./assets/js/app.js"></script>
-
-</body>
-
+        <!-- img container end -->
+            <script src="./assets/js/app.js"></script>
+            
+        </body>
+        
 </html>
